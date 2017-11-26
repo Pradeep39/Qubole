@@ -1,0 +1,490 @@
+{
+  "paragraphs": [
+    {
+      "text": "%sh\npip install --upgrade boto3",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 26, 2017 2:11:25 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511245264508_747525453",
+      "id": "20171121-062104_1955516505",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Requirement already up-to-date: boto3 in /usr/local/lib/python2.7/site-packages\nRequirement already up-to-date: jmespath\u003c1.0.0,\u003e\u003d0.7.1 in /usr/lib/python2.7/dist-packages (from boto3)\nRequirement already up-to-date: botocore\u003c1.9.0,\u003e\u003d1.8.0 in /usr/local/lib/python2.7/site-packages (from boto3)\nRequirement already up-to-date: s3transfer\u003c0.2.0,\u003e\u003d0.1.10 in /usr/lib/python2.7/dist-packages (from boto3)\nRequirement already up-to-date: docutils\u003e\u003d0.10 in /usr/lib/python2.7/dist-packages (from botocore\u003c1.9.0,\u003e\u003d1.8.0-\u003eboto3)\nRequirement already up-to-date: python-dateutil\u003c3.0.0,\u003e\u003d2.1 in /usr/local/lib/python2.7/site-packages (from botocore\u003c1.9.0,\u003e\u003d1.8.0-\u003eboto3)\nRequirement already up-to-date: futures\u003c4.0.0,\u003e\u003d2.2.0; python_version \u003d\u003d \"2.6\" or python_version \u003d\u003d \"2.7\" in /usr/lib/python2.7/dist-packages (from s3transfer\u003c0.2.0,\u003e\u003d0.1.10-\u003eboto3)\nRequirement already up-to-date: six\u003e\u003d1.5 in /usr/local/lib/python2.7/site-packages (from python-dateutil\u003c3.0.0,\u003e\u003d2.1-\u003ebotocore\u003c1.9.0,\u003e\u003d1.8.0-\u003eboto3)\n"
+      },
+      "dateCreated": "Nov 21, 2017 6:21:04 AM",
+      "dateStarted": "Nov 26, 2017 2:11:25 PM",
+      "dateFinished": "Nov 26, 2017 2:11:27 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nsc.addPyFile(\"https://raw.githubusercontent.com/awslabs/aws-glue-samples/master/utilities/Hive_metastore_migration/src/export_from_datacatalog.py\")\nsc.addPyFile(\"https://raw.githubusercontent.com/awslabs/aws-glue-samples/master/utilities/Hive_metastore_migration/src/hive_metastore_migration.py\")",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 26, 2017 2:11:28 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511511155770_-2090699948",
+      "id": "20171124-081235_115384086",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 24, 2017 8:12:35 AM",
+      "dateStarted": "Nov 26, 2017 2:11:29 PM",
+      "dateFinished": "Nov 26, 2017 2:12:20 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport boto3\nimport json\nfrom hive_metastore_migration import *\nimport json\nimport datetime\nimport math\n\nclass DateTimeJSONEncoder(json.JSONEncoder):\n    def default(self, obj):\n        if isinstance(obj, datetime.datetime):\n            epoch \u003d datetime.datetime.utcfromtimestamp(0)\n            naive \u003d obj.replace(tzinfo\u003dNone)\n            timeinmillis\u003d(naive - epoch).total_seconds()*1000\n            return str(int(0 if timeinmillis is None else timeinmillis))\n        else:\n            return super(DateTimeJSONEncoder, self).default(obj)\n\ndef lowerCaseFirstKeyChar(obj):\n    for key in obj.keys():\n        new_key \u003d key[0].lower()+key[1:]\n        if new_key !\u003d key:\n            obj[new_key] \u003d obj[key]\n            del obj[key]\n    return obj\n\n\nACCESS_KEY\u003d\u0027AKIAJOHNMI3EFSRXPCHQ\u0027\nSECRET_KEY\u003d\u0027kzdhvFtEQRqQobuIALGS7LFniSlPqq1LIsbBu6Jk\u0027\n\nclient \u003d boto3.client(\u0027glue\u0027,\n    region_name\u003d\u0027us-east-1\u0027,\n    aws_access_key_id\u003dACCESS_KEY,\n    aws_secret_access_key\u003dSECRET_KEY)\n\nresponseGetDatabases \u003d client.get_databases()\ndatabaseList \u003d responseGetDatabases[\u0027DatabaseList\u0027]\nnewDatabaseList \u003d json.loads(json.dumps(databaseList, cls\u003dDateTimeJSONEncoder), object_hook\u003dlowerCaseFirstKeyChar) \nj\u003d{\u0027items\u0027:newDatabaseList,\u0027type\u0027:\u0027database\u0027}\na\u003d[json.dumps(j, cls\u003dDateTimeJSONEncoder)]\njsonRDD \u003d sc.parallelize(a)\ndatabase_df \u003d spark.read.json(jsonRDD, DATACATALOG_DATABASE_SCHEMA)\n\ntables_json\u003d[]\npartitions_json\u003d[]\n\nfor databaseDict in newDatabaseList:\n    databaseName \u003d databaseDict[\u0027name\u0027]\n    responseGetTables \u003d client.get_tables( DatabaseName \u003d databaseName )\n    tableList \u003d responseGetTables[\u0027TableList\u0027]\n    print json.dumps(tableList, cls\u003dDateTimeJSONEncoder)\n    newTableList \u003d json.loads(json.dumps(tableList, cls\u003dDateTimeJSONEncoder), object_hook\u003dlowerCaseFirstKeyChar) \n    print newTableList\n    j\u003d{\u0027database\u0027:databaseName,\u0027items\u0027:newTableList,\u0027type\u0027:\u0027table\u0027}\n    tables_json.append(json.dumps(j, cls\u003dDateTimeJSONEncoder))\n    for table in newTableList:\n        #print table[\u0027name\u0027]\n        partitionList\u003dclient.get_partitions( DatabaseName \u003d databaseName, TableName \u003d table[\u0027name\u0027] )\n        j\u003d{\u0027database\u0027:databaseName,\u0027table\u0027:table[\u0027name\u0027],\u0027items\u0027:partitionList[\u0027Partitions\u0027],\u0027type\u0027:\u0027Partition\u0027}\n        partitions_json.append(json.dumps(j,cls\u003dDateTimeJSONEncoder))\n        \n \njsonRDD \u003d sc.parallelize(tables_json)\ntables_df \u003d spark.read.json(jsonRDD,DATACATALOG_TABLE_SCHEMA )\n\njsonRDD \u003d sc.parallelize(partitions_json)\npartitions_df \u003d spark.read.json(jsonRDD, DATACATALOG_PARTITION_SCHEMA)\n\n#z.show(tables_df)\ndatabases \u003d database_df.select(\u0027*\u0027, explode(\u0027items\u0027).alias(\u0027item\u0027)).drop(\u0027items\u0027)\nz.show(tables_df)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 26, 2017 2:14:27 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 431.3125,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "database",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "type",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "yAxis": {
+              "name": "type",
+              "index": 1.0,
+              "aggr": "sum"
+            },
+            "xAxis": {
+              "name": "database",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d2",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d3"
+          ],
+          "interpreterSettingId": "2CKSNABF9317981496418443910"
+        }
+      },
+      "jobName": "paragraph_1511422967559_-287847871",
+      "id": "20171123-074247_958167686",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "database\ttype\titems\ndefault\ttable\tWrappedArray([1511243287000,null,null,0,default_qubole_memetracker,EXTERNAL_TABLE,null,null,Map(classification -\u003e json),WrappedArray([month,string,null]),[org.apache.hadoop.mapred.TextInputFormat,false,false,s3://paid-qubole/default-datasets/memetracker/,0,org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat,null,WrappedArray([site,string,null], [ts,string,null], [phr,string,null], [lnks,string,null]),null,[null,com.amazon.elasticmapreduce.JsonSerde,Map(paths -\u003e lnks,phr,site,ts)],null,WrappedArray()]])\nfoo\ttable\tWrappedArray()\nsampledb\ttable\tWrappedArray([1511223766000,1511223766000,hadoop,0,elb_logs,EXTERNAL_TABLE,null,null,Map(transient_lastDdlTime -\u003e 1480278335, eXTERNAL -\u003e TRUE),WrappedArray(),[org.apache.hadoop.mapred.TextInputFormat,false,false,s3://athena-examples-us-east-1/elb/plaintext,-1,org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat,WrappedArray(),WrappedArray([request_timestamp,string,null], [elb_name,string,null], [request_ip,string,null], [request_port,int,null], [backend_ip,string,null], [backend_port,int,null], [request_processing_time,double,null], [backend_processing_time,double,null], [client_response_time,double,null], [elb_response_code,string,null], [backend_response_code,string,null], [received_bytes,bigint,null], [sent_bytes,bigint,null], [request_verb,string,null], [url,string,null], [protocol,string,null], [user_agent,string,null], [ssl_cipher,string,null], [ssl_protocol,string,null]),Map(),[null,org.apache.hadoop.hive.serde2.RegexSerDe,Map(input.regex -\u003e ([^ ]*) ([^ ]*) ([^ ]*):([0-9]*) ([^ ]*):([0-9]*) ([.0-9]*) ([.0-9]*) ([.0-9]*) (-|[0-9]*) (-|[0-9]*) ([-0-9]*) ([-0-9]*) \\\"([^ ]*) ([^ ]*) (- |[^ ]*)\\\" (\"[^\"]*\") ([A-Z0-9-]+) ([A-Za-z0-9.-]*)$, serialization.format -\u003e 1)],[WrappedArray(),Map(),WrappedArray()],WrappedArray()]])\nsurajdb\ttable\tWrappedArray([1510954853000,1510954853000,owner,0,employees_parquet,EXTERNAL_TABLE,null,null,Map(crawlerSchemaSerializerVersion -\u003e 1.0, sizeKey -\u003e 1064, typeOfData -\u003e file, compressionType -\u003e none, averageRecordSize -\u003e 64, crawlerSchemaDeserializerVersion -\u003e 1.0, recordCount -\u003e 10, classification -\u003e parquet, uPDATED_BY_CRAWLER -\u003e surajCrawler, objectCount -\u003e 1),WrappedArray(),[org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat,false,false,s3://qubole-sbang/employees_parquet/,-1,org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat,WrappedArray(),WrappedArray([emp_id,string,null], [first_name,string,null], [last_name,string,null], [title,string,null], [mgr_id,string,null]),Map(crawlerSchemaSerializerVersion -\u003e 1.0, sizeKey -\u003e 1064, typeOfData -\u003e file, compressionType -\u003e none, averageRecordSize -\u003e 64, crawlerSchemaDeserializerVersion -\u003e 1.0, recordCount -\u003e 10, classification -\u003e parquet, uPDATED_BY_CRAWLER -\u003e surajCrawler, objectCount -\u003e 1),[null,org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe,Map(serialization.format -\u003e 1)],null,WrappedArray()]])\nsurajtest\ttable\tWrappedArray()\n\n"
+      },
+      "dateCreated": "Nov 23, 2017 7:42:47 AM",
+      "dateStarted": "Nov 26, 2017 2:14:27 PM",
+      "dateFinished": "Nov 26, 2017 2:14:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "\nsc.addJar(\"/usr/lib/zeppelin/local-repo/2CKSNABF9317981496418443910/mysql-connector-java-5.1.39.jar\")\n\nspark.read.format(\"jdbc\")\n.option(\"url\",\"jdbc:mysql://pradeepapimetastore.cpdokpsr83jx.us-east-1.rds.amazonaws.com:3306/metastore\")\n.option( \"driver\",\"com.mysql.jdbc.Driver\")\n.option(\"dbtable\",\"DBS\")\n.option(\"user\",\"preddy\")\n.option(\"password\",\"Letmein1234\").load().take(10)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 26, 2017 2:14:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 231.6666717529297,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d4"
+          ],
+          "interpreterSettingId": "2CKSNABF9317981496418443910"
+        }
+      },
+      "jobName": "paragraph_1511621155291_737358847",
+      "id": "20171125-144555_302377777",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres2: Array[org.apache.spark.sql.Row] \u003d Array([1,Default Hive database,s3n://qubole-preddy/warehouse,default,public,ROLE])\n"
+      },
+      "dateCreated": "Nov 25, 2017 2:45:55 PM",
+      "dateStarted": "Nov 26, 2017 2:14:56 PM",
+      "dateFinished": "Nov 26, 2017 2:14:58 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sh\nnc -z -v -w5 trainingdb.cpdokpsr83jx.us-east-1.rds.amazonaws.com 3306\nnc -z -v -w5 mysql-firstrds.cpdokpsr83jx.us-east-1.rds.amazonaws.com 3306\nnc -z -v -w5 pradeepapimetastore.cpdokpsr83jx.us-east-1.rds.amazonaws.com 3306",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 25, 2017 9:23:39 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511622701389_1578671707",
+      "id": "20171125-151141_518843895",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Connection to trainingdb.cpdokpsr83jx.us-east-1.rds.amazonaws.com 3306 port [tcp/mysql] succeeded!\nConnection to mysql-firstrds.cpdokpsr83jx.us-east-1.rds.amazonaws.com 3306 port [tcp/mysql] succeeded!\nConnection to pradeepapimetastore.cpdokpsr83jx.us-east-1.rds.amazonaws.com 3306 port [tcp/mysql] succeeded!\n"
+      },
+      "dateCreated": "Nov 25, 2017 3:11:41 PM",
+      "dateStarted": "Nov 25, 2017 9:23:39 PM",
+      "dateFinished": "Nov 25, 2017 9:23:39 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nspark.read.format(\"jdbc\").options(\n    url \u003d\"jdbc:mysql://pradeepapimetastore.cpdokpsr83jx.us-east-1.rds.amazonaws.com:3306/metastore\",\n    driver\u003d\"com.mysql.jdbc.Driver\",\n    dbtable\u003d\"DBS\",\n    user\u003d\"preddy\",\n    password\u003d\"Letmein1234\"\n).load().take(10) ",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 25, 2017 9:23:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511619013855_1930464662",
+      "id": "20171125-141013_1790136171",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "[Row(DB_ID\u003d1, DESC\u003du\u0027Default Hive database\u0027, DB_LOCATION_URI\u003du\u0027s3n://qubole-preddy/warehouse\u0027, NAME\u003du\u0027default\u0027, OWNER_NAME\u003du\u0027public\u0027, OWNER_TYPE\u003du\u0027ROLE\u0027)]\n"
+      },
+      "dateCreated": "Nov 25, 2017 2:10:13 PM",
+      "dateStarted": "Nov 25, 2017 9:23:41 PM",
+      "dateFinished": "Nov 25, 2017 9:23:41 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\nclass MyHiveMetaStore(HiveMetastore):\n    def extract_tbls(self, tables, ms_dbs):\n        ms_tbls_no_id \u003d tables\\\n                .join(ms_dbs, tables.database \u003d\u003d ms_dbs.NAME, \u0027inner\u0027)\\\n                .select(tables.database, tables.item, ms_dbs.DB_ID)\\\n                .select(\u0027DB_ID\u0027, \u0027database\u0027, \u0027item.*\u0027)# database col needed for later\n        ms_tbls \u003d self.generate_id_df(ms_tbls_no_id, \u0027TBL_ID\u0027)\n        print(ms_tbls)\n        return ms_tbls\n        \nclass MyDataCatalogTransformer(DataCatalogTransformer):\n    @staticmethod\n    def udf_milliseconds_str_to_timestamp(milliseconds_str):\n        print \u0027timestamp value:{} transformedvalue:{}\u0027.format(milliseconds_str,(0 if milliseconds_str is None else milliseconds_str))\n        return long(0 if milliseconds_str is None else milliseconds_str) / 1000\n        \n    @staticmethod\n    def column_date_to_timestamp(df, column):\n        date_to_udf_time_int \u003d UserDefinedFunction(\n            MyDataCatalogTransformer.udf_milliseconds_str_to_timestamp,\n            IntegerType())\n        return df.withColumn(column + \u0027_new\u0027, date_to_udf_time_int(col(column)))\\\n                 .drop(column)\\\n                 .withColumnRenamed(column + \u0027_new\u0027, column)\n    \n    def reformat_tbls(self, ms_tbls):\n        # reformat CREATE_TIME and LAST_ACCESS_TIME\n        ms_tbls \u003d MyDataCatalogTransformer.column_date_to_timestamp(ms_tbls, \u0027createTime\u0027)\n        ms_tbls \u003d MyDataCatalogTransformer.column_date_to_timestamp(ms_tbls, \u0027lastAccessTime\u0027)\n\n        ms_tbls \u003d rename_columns(df\u003dms_tbls, rename_tuples\u003d[\n            (\u0027database\u0027, \u0027DB_NAME\u0027),\n            (\u0027createTime\u0027, \u0027CREATE_TIME\u0027),\n            (\u0027lastAccessTime\u0027, \u0027LAST_ACCESS_TIME\u0027),\n            (\u0027owner\u0027, \u0027OWNER\u0027),\n            (\u0027retention\u0027, \u0027RETENTION\u0027),\n            (\u0027name\u0027, \u0027TBL_NAME\u0027),\n            (\u0027tableType\u0027, \u0027TBL_TYPE\u0027),\n            (\u0027viewExpandedText\u0027, \u0027VIEW_EXPANDED_TEXT\u0027),\n            (\u0027viewOriginalText\u0027, \u0027VIEW_ORIGINAL_TEXT\u0027)\n        ])\n        \n        return ms_tbls\n        \n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 26, 2017 4:19:12 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511683861985_-743431345",
+      "id": "20171126-081101_1247780081",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 26, 2017 8:11:01 AM",
+      "dateStarted": "Nov 26, 2017 4:08:17 PM",
+      "dateFinished": "Nov 26, 2017 4:08:17 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nconnection \u003d {\n        \u0027url\u0027: \u0027jdbc:mysql://pradeepapimetastore.cpdokpsr83jx.us-east-1.rds.amazonaws.com:3306/hive\u0027,\n        \u0027user\u0027: \u0027preddy\u0027,\n        \u0027password\u0027: \u0027Letmein1234\u0027\n    }\n    \n# spark env\nconf\u003dsc.getConf()\nsql_context\u003dsqlContext\n\n# extract\nhive_metastore \u003d MyHiveMetaStore(connection, sql_context)\ndata_catalog_transformer\u003d MyDataCatalogTransformer(sc, sql_context)\n\n(databases,tables,partitions)\u003dtransform_items_to_item(database_df,tables_df,partitions_df)\n\n#transform\nMyDataCatalogTransformer(sc, sql_context)\\\n        .transform(hms\u003dhive_metastore, databases\u003ddatabases, tables\u003dtables, partitions\u003dpartitions)\n#transform_databases_tables_partitions(sc, sql_context, hive_metastore, databases, tables, partitions)\n\n#load\nhive_metastore.export_to_metastore()",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 26, 2017 4:20:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "DB_ID",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "DB_NAME",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "DB_ID",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d357",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d358",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d359",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d360",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d361",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d362",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d363",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d364",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d365",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d366",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d367",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d368",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d369",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d370",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d371",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d372",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d373",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d374",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d375",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d376",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d377",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d378",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d379",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d380",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d381",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d382",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d383",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d384",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d385",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d386",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d387",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d388",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d389"
+          ],
+          "interpreterSettingId": "2CKSNABF9317981496418443910"
+        }
+      },
+      "jobName": "paragraph_1511252179514_-1273873655",
+      "id": "20171121-081619_1792628647",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 21, 2017 8:16:19 AM",
+      "dateStarted": "Nov 26, 2017 4:20:19 PM",
+      "dateFinished": "Nov 26, 2017 4:26:45 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\ndef udf_milliseconds_str_to_timestamp(milliseconds_str):\n        print \u0027timestamp value:{} transformedvalue:{}\u0027.format(milliseconds_str,(0 if milliseconds_str is None else milliseconds_str))\n        return long(0 if milliseconds_str is None else milliseconds_str) / 1000\n\ndate_to_udf_time_int \u003d UserDefinedFunction(\n            udf_milliseconds_str_to_timestamp,\n            IntegerType())\n            \ntbls \u003d tbls.withColumn( \u0027createTime_new\u0027, date_to_udf_time_int(col(\u0027createTime\u0027))).drop(\"createTime\").withColumnRenamed(\"createTime_new\", \"createTime\");\ntbls \u003d tbls.withColumn( \u0027lastAccessTime_new\u0027, date_to_udf_time_int(col(\u0027lastAccessTime\u0027))).drop(\"lastAccessTime\").withColumnRenamed(\"lastAccessTime_new\", \"lastAccessTime\");\n\n\nz.show(tbls)\n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 26, 2017 3:27:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "DB_ID",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "database",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "DB_ID",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "database",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d202",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-161-255-146.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511704997436_0001/jobs/job?spark\u003dtrue\u0026id\u003d203"
+          ],
+          "interpreterSettingId": "2CKSNABF9317981496418443910"
+        }
+      },
+      "jobName": "paragraph_1511709138028_520246039",
+      "id": "20171126-151218_1782484846",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "DB_ID\tdatabase\towner\tretention\tname\ttableType\tviewExpandedText\tviewOriginalText\tparameters\tpartitionKeys\tstorageDescriptor\tTBL_ID\tcreateTime\tlastAccessTime\n3\tsurajdb\towner\t0\temployees_parquet\tEXTERNAL_TABLE\tnull\tnull\tMap(crawlerSchemaSerializerVersion -\u003e 1.0, sizeKey -\u003e 1064, typeOfData -\u003e file, compressionType -\u003e none, averageRecordSize -\u003e 64, crawlerSchemaDeserializerVersion -\u003e 1.0, recordCount -\u003e 10, classification -\u003e parquet, uPDATED_BY_CRAWLER -\u003e surajCrawler, objectCount -\u003e 1)\tWrappedArray()\t[org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat,false,false,s3://qubole-sbang/employees_parquet/,-1,org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat,WrappedArray(),WrappedArray([emp_id,string,null], [first_name,string,null], [last_name,string,null], [title,string,null], [mgr_id,string,null]),Map(crawlerSchemaSerializerVersion -\u003e 1.0, sizeKey -\u003e 1064, typeOfData -\u003e file, compressionType -\u003e none, averageRecordSize -\u003e 64, crawlerSchemaDeserializerVersion -\u003e 1.0, recordCount -\u003e 10, classification -\u003e parquet, uPDATED_BY_CRAWLER -\u003e surajCrawler, objectCount -\u003e 1),[null,org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe,Map(serialization.format -\u003e 1)],null,WrappedArray()]\t0\t1510\t1510\n2\tsampledb\thadoop\t0\telb_logs\tEXTERNAL_TABLE\tnull\tnull\tMap(eXTERNAL -\u003e TRUE, transient_lastDdlTime -\u003e 1480278335)\tWrappedArray()\t[org.apache.hadoop.mapred.TextInputFormat,false,false,s3://athena-examples-us-east-1/elb/plaintext,-1,org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat,WrappedArray(),WrappedArray([request_timestamp,string,null], [elb_name,string,null], [request_ip,string,null], [request_port,int,null], [backend_ip,string,null], [backend_port,int,null], [request_processing_time,double,null], [backend_processing_time,double,null], [client_response_time,double,null], [elb_response_code,string,null], [backend_response_code,string,null], [received_bytes,bigint,null], [sent_bytes,bigint,null], [request_verb,string,null], [url,string,null], [protocol,string,null], [user_agent,string,null], [ssl_cipher,string,null], [ssl_protocol,string,null]),Map(),[null,org.apache.hadoop.hive.serde2.RegexSerDe,Map(input.regex -\u003e ([^ ]*) ([^ ]*) ([^ ]*):([0-9]*) ([^ ]*):([0-9]*) ([.0-9]*) ([.0-9]*) ([.0-9]*) (-|[0-9]*) (-|[0-9]*) ([-0-9]*) ([-0-9]*) \\\"([^ ]*) ([^ ]*) (- |[^ ]*)\\\" (\"[^\"]*\") ([A-Z0-9-]+) ([A-Za-z0-9.-]*)$, serialization.format -\u003e 1)],[WrappedArray(),Map(),WrappedArray()],WrappedArray()]\t1\t1511\t1511\n0\tdefault\tnull\t0\tdefault_qubole_memetracker\tEXTERNAL_TABLE\tnull\tnull\tMap(classification -\u003e json)\tWrappedArray([month,string,null])\t[org.apache.hadoop.mapred.TextInputFormat,false,false,s3://paid-qubole/default-datasets/memetracker/,0,org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat,null,WrappedArray([site,string,null], [ts,string,null], [phr,string,null], [lnks,string,null]),null,[null,com.amazon.elasticmapreduce.JsonSerde,Map(paths -\u003e lnks,phr,site,ts)],null,WrappedArray()]\t2\t1511\t0\n\n"
+      },
+      "dateCreated": "Nov 26, 2017 3:12:18 PM",
+      "dateStarted": "Nov 26, 2017 3:25:41 PM",
+      "dateFinished": "Nov 26, 2017 3:25:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511593056480_1469100643",
+      "id": "20171125-065736_66033010",
+      "dateCreated": "Nov 25, 2017 6:57:36 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "AWS_Glue_Data_Catalog_migrate - Modular",
+  "id": "X3131PM76X1511510916",
+  "angularObjects": {
+    "2CH145DDJ317981496418443956:shared_process": [],
+    "2CK4JA15Y317981496418443952:shared_process": [],
+    "2CMB4PVG8317981496418443948:shared_process": [],
+    "2CKSNABF9317981496418443910:shared_process": []
+  },
+  "config": {
+    "isDashboard": false
+  },
+  "info": {},
+  "source": "FCN"
+}
