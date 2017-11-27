@@ -1,0 +1,380 @@
+{
+  "paragraphs": [
+    {
+      "title": "ReadMe",
+      "text": "%md\n#### \n            1) This notebook requires latest boto3 package (use \u0027pip install --upgrade boto3\u0027 in node bootstrap).\n            2) A Customer hosted MySQL database \u0027hive\u0027 with appropriate schema should be provisioned        \n                eg: DDL to run: https://raw.githubusercontent.com/apache/hive/master/metastore/scripts/upgrade/mysql/hive-schema-1.2.0.mysql.sql\n            3) The database provisioned in step 3 needs to be mapped to Qubole as metastore using \u0027Explore -\u003e Hive Metastore -\u003e Update\u0027\n            4) Run each notebook paragraph separately starting from first to last and avoid using \u0027Run All\u0027 option\n            5) AWS IAM keys need to be provided as input in the 3rd paragraph.The associated IAM user should be provisioned with appropriate Glue access.\n            6) Metastore JDBC URL, username and password should also be provided as input in the 3rd paragraph.\n                eg: JDBC_URL: jdbc:mysql://\u003chost_name\u003e:\u003cport\u003e/hive\n            7) After execution completes, Clear text fields in 3rd paragraph and run the paragraph to protect keys and passwords. \n    ",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 27, 2017 9:51:11 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "title": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511811444234_1153199183",
+      "id": "20171127-193724_390889137",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch4\u003e\u003c/h4\u003e\n\u003cpre\u003e\u003ccode\u003e        1) This notebook requires latest boto3 package (use \u0027pip install --upgrade boto3\u0027 in node bootstrap).\n        2) A Customer hosted MySQL database \u0027hive\u0027 with appropriate schema should be provisioned        \n            eg: DDL to run: https://raw.githubusercontent.com/apache/hive/master/metastore/scripts/upgrade/mysql/hive-schema-1.2.0.mysql.sql\n        3) The database provisioned in step 3 needs to be mapped to Qubole as metastore using \u0027Explore -\u0026gt; Hive Metastore -\u0026gt; Update\u0027\n        4) Run each notebook paragraph separately starting from first to last and avoid using \u0027Run All\u0027 option\n        5) AWS IAM keys need to be provided as input in the 3rd paragraph.The associated IAM user should be provisioned with appropriate Glue access.\n        6) Metastore JDBC URL, username and password should also be provided as input in the 3rd paragraph.\n            eg: JDBC_URL: jdbc:mysql://\u0026lt;host_name\u0026gt;:\u0026lt;port\u0026gt;/hive\n        7) After execution completes, Clear text fields in 3rd paragraph and run the paragraph to protect keys and passwords.\n\u003c/code\u003e\u003c/pre\u003e\n"
+      },
+      "dateCreated": "Nov 27, 2017 7:37:24 PM",
+      "dateStarted": "Nov 27, 2017 9:51:09 PM",
+      "dateFinished": "Nov 27, 2017 9:51:09 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Import AWS Glue Data Catalog Utilities",
+      "text": "%pyspark\nsc.addPyFile(\"https://raw.githubusercontent.com/awslabs/aws-glue-samples/master/utilities/Hive_metastore_migration/src/export_from_datacatalog.py\")\nsc.addPyFile(\"https://raw.githubusercontent.com/awslabs/aws-glue-samples/master/utilities/Hive_metastore_migration/src/hive_metastore_migration.py\")",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 27, 2017 9:51:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511511155770_-2090699948",
+      "id": "20171124-081235_115384086",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 24, 2017 8:12:35 AM",
+      "dateStarted": "Nov 27, 2017 9:51:21 PM",
+      "dateFinished": "Nov 27, 2017 9:52:42 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Parameters to run ",
+      "text": "%pyspark\nACCESS_KEY \u003d z.input(\"ACCESS_KEY\")\nSECRET_KEY \u003d z.input(\"SECRET_KEY\")\nMETASTORE_JDBC_URL \u003d z.input(\"METASTORE_JDBC_URL\")\nMETASTORE_USER \u003d z.input(\"METASTORE_USER\")\nMETASTORE_PASSWORD \u003d z.input(\"METASTORE_PASSWORD\")\nprint \u0027ACCESS_KEY Provided is: \u0027+ ACCESS_KEY\nprint \u0027SECRET_KEY Provided is: \u0027 + SECRET_KEY\nprint \u0027METASTORE_JDBC_URL Provided is: \u0027+ METASTORE_JDBC_URL\nprint \u0027METASTORE_USER Provided is: \u0027 + METASTORE_USER\nprint \u0027METASTORE_PASSWORD Provided is: \u0027+ METASTORE_PASSWORD",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 27, 2017 9:56:51 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {
+          "ACCESS_KEY": "",
+          "SECRET_KEY": "",
+          "METASTORE_JDBC_URL": "",
+          "METASTORE_USER": "",
+          "METASTORE_PASSWORD": ""
+        },
+        "forms": {
+          "ACCESS_KEY": {
+            "name": "ACCESS_KEY",
+            "displayName": "ACCESS_KEY",
+            "type": "input",
+            "defaultValue": "",
+            "hidden": false
+          },
+          "SECRET_KEY": {
+            "name": "SECRET_KEY",
+            "displayName": "SECRET_KEY",
+            "type": "input",
+            "defaultValue": "",
+            "hidden": false
+          },
+          "METASTORE_JDBC_URL": {
+            "name": "METASTORE_JDBC_URL",
+            "displayName": "METASTORE_JDBC_URL",
+            "type": "input",
+            "defaultValue": "",
+            "hidden": false
+          },
+          "METASTORE_USER": {
+            "name": "METASTORE_USER",
+            "displayName": "METASTORE_USER",
+            "type": "input",
+            "defaultValue": "",
+            "hidden": false
+          },
+          "METASTORE_PASSWORD": {
+            "name": "METASTORE_PASSWORD",
+            "displayName": "METASTORE_PASSWORD",
+            "type": "input",
+            "defaultValue": "",
+            "hidden": false
+          }
+        }
+      },
+      "jobName": "paragraph_1511802503754_-851690036",
+      "id": "20171127-170823_714858884",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "ACCESS_KEY Provided is: \nSECRET_KEY Provided is: \nMETASTORE_JDBC_URL Provided is: \nMETASTORE_USER Provided is: \nMETASTORE_PASSWORD Provided is: \n"
+      },
+      "dateCreated": "Nov 27, 2017 5:08:23 PM",
+      "dateStarted": "Nov 27, 2017 9:56:51 PM",
+      "dateFinished": "Nov 27, 2017 9:56:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Acquire Glue Data Catalog MetaData",
+      "text": "%pyspark\nimport boto3\nimport json\nfrom hive_metastore_migration import *\nimport json\nimport datetime\nimport math\n\nclass DateTimeJSONEncoder(json.JSONEncoder):\n    def default(self, obj):\n        if isinstance(obj, datetime.datetime):\n            epoch \u003d datetime.datetime.utcfromtimestamp(0)\n            naive \u003d obj.replace(tzinfo\u003dNone)\n            timeinmillis\u003d(naive - epoch).total_seconds()*1000\n            return str(int(0 if timeinmillis is None else timeinmillis))\n        else:\n            return super(DateTimeJSONEncoder, self).default(obj)\n\ndef lowerCaseFirstKeyChar(obj):\n    for key in obj.keys():\n        new_key \u003d key[0].lower()+key[1:]\n        if new_key !\u003d key:\n            obj[new_key] \u003d obj[key]\n            del obj[key]\n    return obj\n\n\nclient \u003d boto3.client(\u0027glue\u0027,\n    region_name\u003d\u0027us-east-1\u0027,\n    aws_access_key_id\u003dACCESS_KEY,\n    aws_secret_access_key\u003dSECRET_KEY)\n\nresponseGetDatabases \u003d client.get_databases()\ndatabaseList \u003d responseGetDatabases[\u0027DatabaseList\u0027]\nnewDatabaseList \u003d json.loads(json.dumps(databaseList, cls\u003dDateTimeJSONEncoder), object_hook\u003dlowerCaseFirstKeyChar) \nj\u003d{\u0027items\u0027:newDatabaseList,\u0027type\u0027:\u0027database\u0027}\na\u003d[json.dumps(j, cls\u003dDateTimeJSONEncoder)]\njsonRDD \u003d sc.parallelize(a)\ndatabase_df \u003d spark.read.json(jsonRDD, DATACATALOG_DATABASE_SCHEMA)\n\ntables_json\u003d[]\npartitions_json\u003d[]\n\nfor databaseDict in newDatabaseList:\n    databaseName \u003d databaseDict[\u0027name\u0027]\n    responseGetTables \u003d client.get_tables( DatabaseName \u003d databaseName )\n    tableList \u003d responseGetTables[\u0027TableList\u0027]\n    newTableList \u003d json.loads(json.dumps(tableList, cls\u003dDateTimeJSONEncoder), object_hook\u003dlowerCaseFirstKeyChar) \n    #print newTableList\n    j\u003d{\u0027database\u0027:databaseName,\u0027items\u0027:newTableList,\u0027type\u0027:\u0027table\u0027}\n    tables_json.append(json.dumps(j, cls\u003dDateTimeJSONEncoder))\n    for table in newTableList:\n        #print table[\u0027name\u0027]\n        partitionList\u003dclient.get_partitions( DatabaseName \u003d databaseName, TableName \u003d table[\u0027name\u0027] )\n        j\u003d{\u0027database\u0027:databaseName,\u0027table\u0027:table[\u0027name\u0027],\u0027items\u0027:partitionList[\u0027Partitions\u0027],\u0027type\u0027:\u0027Partition\u0027}\n        partitions_json.append(json.dumps(j,cls\u003dDateTimeJSONEncoder))\n        \n \njsonRDD \u003d sc.parallelize(tables_json)\ntables_df \u003d spark.read.json(jsonRDD,DATACATALOG_TABLE_SCHEMA )\n\njsonRDD \u003d sc.parallelize(partitions_json)\npartitions_df \u003d spark.read.json(jsonRDD, DATACATALOG_PARTITION_SCHEMA)\n\n#z.show(tables_df)\ndatabases \u003d database_df.select(\u0027*\u0027, explode(\u0027items\u0027).alias(\u0027item\u0027)).drop(\u0027items\u0027)\n#z.show(tables_df)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 27, 2017 9:37:59 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 431.3125,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "database",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "type",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "yAxis": {
+              "name": "type",
+              "index": 1.0,
+              "aggr": "sum"
+            },
+            "xAxis": {
+              "name": "database",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511422967559_-287847871",
+      "id": "20171123-074247_958167686",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 23, 2017 7:42:47 AM",
+      "dateStarted": "Nov 27, 2017 9:30:07 PM",
+      "dateFinished": "Nov 27, 2017 9:30:08 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Customized DataCatalog Transformer for Qubole",
+      "text": "%pyspark\n        \nclass QuboleDataCatalogTransformer(DataCatalogTransformer):\n    @staticmethod\n    def udf_milliseconds_str_to_timestamp(milliseconds_str):\n        print \u0027timestamp value:{} transformedvalue:{}\u0027.format(milliseconds_str,(0 if milliseconds_str is None else milliseconds_str))\n        return long(0 if milliseconds_str is None else milliseconds_str) / 1000\n        \n    @staticmethod\n    def column_date_to_timestamp(df, column):\n        date_to_udf_time_int \u003d UserDefinedFunction(\n            MyDataCatalogTransformer.udf_milliseconds_str_to_timestamp,\n            IntegerType())\n        return df.withColumn(column + \u0027_new\u0027, date_to_udf_time_int(col(column)))\\\n                 .drop(column)\\\n                 .withColumnRenamed(column + \u0027_new\u0027, column)\n    \n    def reformat_tbls(self, ms_tbls):\n        # reformat CREATE_TIME and LAST_ACCESS_TIME\n        ms_tbls \u003d MyDataCatalogTransformer.column_date_to_timestamp(ms_tbls, \u0027createTime\u0027)\n        ms_tbls \u003d MyDataCatalogTransformer.column_date_to_timestamp(ms_tbls, \u0027lastAccessTime\u0027)\n\n        ms_tbls \u003d rename_columns(df\u003dms_tbls, rename_tuples\u003d[\n            (\u0027database\u0027, \u0027DB_NAME\u0027),\n            (\u0027createTime\u0027, \u0027CREATE_TIME\u0027),\n            (\u0027lastAccessTime\u0027, \u0027LAST_ACCESS_TIME\u0027),\n            (\u0027owner\u0027, \u0027OWNER\u0027),\n            (\u0027retention\u0027, \u0027RETENTION\u0027),\n            (\u0027name\u0027, \u0027TBL_NAME\u0027),\n            (\u0027tableType\u0027, \u0027TBL_TYPE\u0027),\n            (\u0027viewExpandedText\u0027, \u0027VIEW_EXPANDED_TEXT\u0027),\n            (\u0027viewOriginalText\u0027, \u0027VIEW_ORIGINAL_TEXT\u0027)\n        ])\n        \n        return ms_tbls\n        \n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 27, 2017 9:46:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511683861985_-743431345",
+      "id": "20171126-081101_1247780081",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 26, 2017 8:11:01 AM",
+      "dateStarted": "Nov 27, 2017 9:46:04 PM",
+      "dateFinished": "Nov 27, 2017 9:46:04 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Transform Glue Catalog MetaData And Import to Customer Hosted Metastore",
+      "text": "%pyspark\nconnection \u003d {\n        \u0027url\u0027: METASTORE_JDBC_URL,\n        \u0027user\u0027: METASTORE_USER,\n        \u0027password\u0027: METASTORE_PASSWORD\n    }\n    \n# spark env\nconf\u003dsc.getConf()\nsql_context\u003dsqlContext\n\n# extract\nhive_metastore \u003d HiveMetastore(connection, sql_context)\ndata_catalog_transformer\u003d QuboleDataCatalogTransformer(sc, sql_context)\n\n(databases,tables,partitions)\u003dtransform_items_to_item(database_df,tables_df,partitions_df)\n\n#transform\nQuboleDataCatalogTransformer(sc, sql_context)\\\n        .transform(hms\u003dhive_metastore, databases\u003ddatabases, tables\u003dtables, partitions\u003dpartitions)\n\n#load\nhive_metastore.export_to_metastore()",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Nov 27, 2017 9:46:09 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "DB_ID",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "DB_NAME",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "DB_ID",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d55",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d56",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d57",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d58",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d59",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d60",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d61",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d62",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d63",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d64",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d65",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d66",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d67",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d68",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d69",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d70",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d71",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d72",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d73",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d74",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d75",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d76",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d77",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d78",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d79",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d80",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d81",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d82",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d83",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d84",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d85",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d86",
+            "https://api.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2Fec2-54-166-243-101.compute-1.amazonaws.com%3A8088%2Fproxy%2Fapplication_1511814599717_0002/jobs/job?spark\u003dtrue\u0026id\u003d87"
+          ],
+          "interpreterSettingId": "2CKSNABF9317981496418443910"
+        }
+      },
+      "jobName": "paragraph_1511252179514_-1273873655",
+      "id": "20171121-081619_1792628647",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 21, 2017 8:16:19 AM",
+      "dateStarted": "Nov 27, 2017 9:46:09 PM",
+      "dateFinished": "Nov 27, 2017 9:52:42 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1511593056480_1469100643",
+      "id": "20171125-065736_66033010",
+      "dateCreated": "Nov 25, 2017 6:57:36 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "AWS_Glue_Data_Catalog_Migration_Qubole",
+  "id": "X3131PM76X1511510916",
+  "angularObjects": {
+    "2CH145DDJ317981496418443956:shared_process": [],
+    "2CK4JA15Y317981496418443952:shared_process": [],
+    "2CMB4PVG8317981496418443948:shared_process": [],
+    "2CKSNABF9317981496418443910:shared_process": []
+  },
+  "config": {
+    "isDashboard": false
+  },
+  "info": {},
+  "source": "FCN"
+}
