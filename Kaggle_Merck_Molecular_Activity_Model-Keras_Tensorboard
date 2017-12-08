@@ -1,0 +1,287 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n#Overview\nWhen developing new medicines it is important for Merck(provider of the dataset used in this notebook) to identify molecules that are highly active toward their intended targets but not toward other targets that might cause side effects. The objective of this notebook is to predict biological activities of different molecules, both on- and off-target, given numerical descriptors generated from their chemical structures. The challenge is based on 15 molecular activity data sets, each for a biologically relevant target. Each row corresponds to a molecule and contains descriptors derived from that molecule\u0027s chemical structure. Additional information about the data challenge can be found at the below link\n\n\u003chttps://www.kaggle.com/c/MerckActivity\u003e\n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Dec 8, 2017 8:03:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1500589370180_-629563101",
+      "id": "20170720-222250_439305367",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003e#Overview\u003cbr/\u003eWhen developing new medicines it is important for Merck(provider of the dataset used in this notebook) to identify molecules that are highly active toward their intended targets but not toward other targets that might cause side effects. The objective of this notebook is to predict biological activities of different molecules, both on- and off-target, given numerical descriptors generated from their chemical structures. The challenge is based on 15 molecular activity data sets, each for a biologically relevant target. Each row corresponds to a molecule and contains descriptors derived from that molecule\u0026rsquo;s chemical structure. Additional information about the data challenge can be found at the below link\u003c/p\u003e\n\u003cp\u003e\u003ca href\u003d\"https://www.kaggle.com/c/MerckActivity\"\u003ehttps://www.kaggle.com/c/MerckActivity\u003c/a\u003e\u003c/p\u003e\n\u003c/div\u003e"
+      },
+      "dateCreated": "Jul 20, 2017 10:22:50 PM",
+      "dateStarted": "Dec 8, 2017 8:03:14 PM",
+      "dateFinished": "Dec 8, 2017 8:03:16 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Import",
+      "text": "%pyspark\nimport numpy as np\nimport pandas as pd\nimport keras\nimport tensorflow as tf\n\nfrom sklearn.decomposition import PCA\n\nfrom keras import callbacks\nfrom keras.models import Sequential, load_model\nfrom keras.layers import Dense, Dropout, BatchNormalization\nimport sklearn\nfrom sklearn import metrics\nfrom sklearn.preprocessing import normalize\nfrom sklearn.cross_validation import KFold\n\nimport pyspark.sql.types\nfrom pyspark.sql.types import StructType, StructField, BooleanType, IntegerType, DoubleType, StringType, ArrayType\nfrom pyspark.sql.functions import udf\nfrom pyspark.ml.linalg import Vectors\nfrom pyspark.ml.feature import VectorAssembler\nfrom pyspark.sql.functions import col",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Dec 8, 2017 8:05:50 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1498058279610_662100561",
+      "id": "20170621-151759_1793175594",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Jun 21, 2017 3:17:59 PM",
+      "dateStarted": "Dec 8, 2017 8:05:50 PM",
+      "dateFinished": "Dec 8, 2017 8:05:50 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Load Data",
+      "text": "%pyspark\n# Molecule number\ndataset_num \u003d 7\n\n# File load names\ndata_train_name \u003d \u0027https://s3.amazonaws.com/mstolpner-1/indix/kaggle-files/ACT%s_Kaggle_train.csv\u0027 % (dataset_num)\ndata_test_name  \u003d \u0027https://s3.amazonaws.com/mstolpner-1/indix/kaggle-files/ACT%s_Kaggle_test.csv\u0027 % (dataset_num)\n\n# Load data into structures\ndata_train_df \u003d pd.read_csv(data_train_name)\ndata_train_mod \u003d data_train_df.ix[:,3:].values\nlabels_train \u003d data_train_df[\u0027Act\u0027].values\n\ndata_test_df \u003d pd.read_csv(data_test_name)\ndata_test_mod \u003d data_test_df.ix[:,3:].values\nlabels_test \u003d data_test_df[\u0027Act\u0027].values",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Dec 8, 2017 8:05:52 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1498058487012_845700763",
+      "id": "20170621-152127_1608211399",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Jun 21, 2017 3:21:27 PM",
+      "dateStarted": "Dec 8, 2017 8:05:52 PM",
+      "dateFinished": "Dec 8, 2017 8:05:52 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "PCA \u0026 Normalization",
+      "text": "%pyspark\n# Selecting principal components with PCA and normalizing the data\n\npca \u003d PCA(n_components\u003d0.99)\npca.fit(data_train_mod)\n\ndata_train_norm \u003d normalize(data_train_mod)\ndata_test_norm  \u003d normalize(data_test_mod)\ndata_train_pca  \u003d pca.transform(data_train_mod)\ndata_test_pca   \u003d pca.transform(data_test_mod)\nnum_features_pca \u003d data_train_pca.shape[1]\n\nnormpca \u003d PCA(n_components\u003d0.99)\nnormpca.fit(data_train_norm)\ndata_train_norm_pca \u003d normpca.transform(data_train_norm)\ndata_test_norm_pca  \u003d normpca.transform(data_test_norm)\n\ndata_train_array \u003d [[data_train_mod, data_train_pca], [data_train_norm, data_train_norm_pca]]\ndata_test_array \u003d [[data_test_mod, data_test_pca], [data_test_norm, data_test_norm_pca]]",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Dec 8, 2017 8:05:54 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1498058536923_-2076589727",
+      "id": "20170621-152216_1412250883",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Jun 21, 2017 3:22:16 PM",
+      "dateStarted": "Dec 8, 2017 8:05:54 PM",
+      "dateFinished": "Dec 8, 2017 8:05:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Define Model-building Function",
+      "text": "%pyspark\ndef make_model(data_train_array, labels_train, data_test_array, labels_test, *args):\n    \n    # Retrieve parameters from *args, and check which \u0027Layers\u0027 formatting is used (if any)\n    params \u003d [\u0027\u0027]+args[0]\n    if \u0027Neurons\u0027 in params:\n        nb_layers \u003d args[params.index(\u0027Layers\u0027)] if \u0027Layers\u0027 in params else 2\n        nb_neurons \u003d args[params.index(\u0027Neurons\u0027)]\n        layer_list \u003d [nb_neurons]*nb_layers\n    else:\n        layer_list \u003d args[params.index(\u0027Layers\u0027)] if \u0027Layers\u0027 in params else [256]*2\n    lr \u003d args[params.index(\u0027Learning Rate\u0027)] if \u0027Learning Rate\u0027 in params else 0.001\n    batch \u003d args[params.index(\u0027Batch Size\u0027)] if \u0027Batch Size\u0027 in params else 16\n    dropout \u003d args[params.index(\u0027Dropout\u0027)] if \u0027Dropout\u0027 in params else 0.0\n    activation \u003d args[params.index(\u0027Activation\u0027)] if \u0027Activation\u0027 in params else \u0027relu\u0027\n    opt_name \u003d args[params.index(\u0027Optimizer\u0027)] if \u0027Optimizer\u0027 in params else \u0027adam\u0027\n    use_pca \u003d args[params.index(\u0027PCA\u0027)] if \u0027PCA\u0027 in params else True\n    use_normalization \u003d args[params.index(\u0027Normalize\u0027)] if \u0027Normalize\u0027 in params else False\n    \n    folds    \u003d 5\n    patience \u003d 5\n    epochs   \u003d 100\n    \n    # choose between PCA/non-PCA and normalized/non-normalized data\n    if use_pca and use_normalization:\n        data_train \u003d data_train_array[1][1]\n        data_test \u003d data_test_array[1][1]\n    elif use_pca:\n        data_train \u003d data_train_array[0][1]\n        data_test \u003d data_test_array[0][1]\n    elif use_normalization:\n        data_train \u003d data_train_array[1][0]\n        data_test \u003d data_test_array[1][0]\n    else:\n        data_train \u003d data_train_array[0][0]\n        data_test \u003d data_test_array[0][0]\n    \n    input_shape \u003d data_train.shape[1]\n    \n    # Create the callback for training validation loss and running TensorBoard\n    callback_val_loss \u003d keras.callbacks.EarlyStopping(monitor\u003d\u0027val_loss\u0027, patience\u003dpatience, mode\u003d\u0027min\u0027)\n    callback_tensorboard \u003d keras.callbacks.TensorBoard(log_dir\u003d\u0027/tmp/keras_logs\u0027, histogram_freq\u003d1)\n    \n    callbacks \u003d [callback_val_loss, callback_tensorboard]\n    \n    # Create the sequential model which builds the neural net\n    model\u003dSequential()\n    # Add each layer\n    for i in range(len(layer_list)):\n        # Need input shape for first layer\n        if i:\n            model.add(Dense(layer_list[i], activation\u003dactivation))\n        else:\n            model.add(Dense(layer_list[i], activation\u003dactivation, input_shape\u003d(input_shape,)))\n            \n        # Add an optional dropout layer between each dense layer\n        model.add(Dropout(dropout))\n        model.add(BatchNormalization())\n        \n    # Output layer\n    model.add(Dense(1, activation\u003d\u0027linear\u0027))\n    \n    # Configure our optimizer and compile the model\n    opt_dict \u003d {\u0027adam\u0027:keras.optimizers.adam, \u0027RMSprop\u0027:keras.optimizers.RMSprop, \u0027Adagrad\u0027:keras.optimizers.Adagrad, \u0027Adadelta\u0027:keras.optimizers.Adadelta,\n                \u0027Adamax\u0027:keras.optimizers.Adamax, \u0027Nadam\u0027:keras.optimizers.Nadam}\n    optimizer \u003d opt_dict[opt_name](lr\u003dlr)\n    model.compile(loss\u003d\u0027mean_squared_error\u0027, optimizer\u003doptimizer, metric\u003d[metrics.r2_score])\n    \n    model.fit(data_train, labels_train, validation_split\u003d0.20, batch_size\u003dbatch, epochs\u003depochs, verbose\u003d0, callbacks\u003dcallbacks)\n    return model",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Dec 8, 2017 8:05:58 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1498058030034_1250798671",
+      "id": "20170621-151350_1430423204",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Jun 21, 2017 3:13:50 PM",
+      "dateStarted": "Dec 8, 2017 8:05:58 PM",
+      "dateFinished": "Dec 8, 2017 8:05:58 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Run Model",
+      "text": "%pyspark\ntop_model \u003d make_model(data_train_array, labels_train, data_test_array, labels_test,\n                       [\u0027Activation\u0027,\u0027Batch Size\u0027,\u0027Dropout\u0027,\u0027Layers\u0027,\u0027Learning Rate\u0027,\u0027Neurons\u0027,\u0027Normalize\u0027,\u0027Optimizer\u0027,\u0027PCA\u0027],\n                       \u0027relu\u0027, 16, 0.0, 3, 0.001, 512, False, \u0027adam\u0027, True)\n\n# Test model\ntest_score_loaded \u003d float(metrics.r2_score(labels_test, top_model.predict(data_test_pca)))\n\n# Check tested score\nprint(\"Loaded Model Score: %.2f%%\" % (test_score_loaded*100))",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Dec 8, 2017 8:06:01 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1498058124378_-806164183",
+      "id": "20170621-151524_895130563",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "/usr/lib/envs/env-103-ver-226-a-4.2.9-py-2.7.13/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py:2094: UserWarning: Expected no kwargs, you passed 1\nkwargs passed to function are ignored with Tensorflow backend\n  warnings.warn(\u0027\\n\u0027.join(msg))\n\n\n\n2017-12-08 20:06:04.259134: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn\u0027t compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.\n2017-12-08 20:06:04.259166: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn\u0027t compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.\n2017-12-08 20:06:04.259177: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn\u0027t compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.\nLoaded Model Score: 70.40%\n"
+      },
+      "dateCreated": "Jun 21, 2017 3:15:24 PM",
+      "dateStarted": "Dec 8, 2017 8:06:01 PM",
+      "dateFinished": "Dec 8, 2017 8:06:25 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Run TensorBoard",
+      "text": "%sh\nsource /usr/lib/hustler/bin/qubole-bash-lib.sh\n/usr/lib/envs/$(nodeinfo env_python_package_name)/bin/python -m tensorboard.main --logdir\u003d\u0027/tmp/keras_logs\u0027 --port\u003d8998",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "Dec 8, 2017 8:25:59 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sh",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1498058262607_-1496756166",
+      "id": "20170621-151742_1517785032",
+      "result": {
+        "code": "INCOMPLETE",
+        "type": "TEXT",
+        "msg": "++ key\u003d_env_python_package_name\n++ echo env-103-ver-226-a-4.2.9-py-2.7.13\nParagraph received a SIGTERM.\nExitValue: 143"
+      },
+      "dateCreated": "Jun 21, 2017 3:17:42 PM",
+      "dateStarted": "Dec 8, 2017 8:25:59 PM",
+      "dateFinished": "Dec 8, 2017 8:35:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1499097848876_1618984308",
+      "id": "20170703-160408_592367611",
+      "dateCreated": "Jul 3, 2017 4:04:08 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Kaggle Merck Tensorflow",
+  "id": "7882ZDRBV11512678348",
+  "angularObjects": {
+    "2D31AHQBM436611512667597278:shared_process": [],
+    "2CZETGX7X436611512667597186:shared_process": [],
+    "2D1TGJAC6436611512667597303:shared_process": [],
+    "2D1M4Q2RW436611512667597312:shared_process": []
+  },
+  "config": {
+    "isDashboard": false
+  },
+  "info": {},
+  "source": "FCN"
+}
