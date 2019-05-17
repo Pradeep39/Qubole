@@ -3,7 +3,7 @@
     {
       "text": "%r\nrows \u003c- read.json(sqlContext,\"s3://qubole-preddy.us/datasets/google_analytics/all_data/\")\ncreateOrReplaceTempView(rows,\"data_all\")\nprintSchema(rows)\n",
       "user": "preddy@qubole.com",
-      "dateUpdated": "May 14, 2019 8:14:24 PM",
+      "dateUpdated": "May 17, 2019 8:24:24 PM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -28,7 +28,7 @@
           "tooltip": "View in Spark web UI",
           "group": "spark",
           "values": [
-            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d0"
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.5.188.29%3A8088%2Fproxy%2Fapplication_1558122376102_0001/jobs/job?spark\u003dtrue\u0026id\u003d0"
           ],
           "interpreterSettingId": "2CR3VEDTX11041500270198358"
         }
@@ -42,9 +42,9 @@
         "msg": "\nroot\n |– channelGrouping: string (nullable \u003d true)\n |– customDimensions: array (nullable \u003d true)\n |    |– element: struct (containsNull \u003d true)\n |    |    |– index: string (nullable \u003d true)\n |    |    |– value: string (nullable \u003d true)\n |– date: string (nullable \u003d true)\n |– device: struct (nullable \u003d true)\n |    |– browser: string (nullable \u003d true)\n |    |– browserSize: string (nullable \u003d true)\n |    |– browserVersion: string (nullable \u003d true)\n |    |– deviceCategory: string (nullable \u003d true)\n |    |– flashVersion: string (nullable \u003d true)\n |    |– isMobile: boolean (nullable \u003d true)\n |    |– language: string (nullable \u003d true)\n |    |– mobileDeviceBranding: string (nullable \u003d true)\n |    |– mobileDeviceInfo: string (nullable \u003d true)\n |    |– mobileDeviceMarketingName: string (nullable \u003d true)\n |    |– mobileDeviceModel: string (nullable \u003d true)\n |    |– mobileInputSelector: string (nullable \u003d true)\n |    |– operatingSystem: string (nullable \u003d true)\n |    |– operatingSystemVersion: string (nullable \u003d true)\n |    |– screenColors: string (nullable \u003d true)\n |    |– screenResolution: string (nullable \u003d true)\n |– fullVisitorId: string (nullable \u003d true)\n |– geoNetwork: struct (nullable \u003d true)\n |    |– city: string (nullable \u003d true)\n |    |– cityId: string (nullable \u003d true)\n |    |– continent: string (nullable \u003d true)\n |    |– country: string (nullable \u003d true)\n |    |– latitude: string (nullable \u003d true)\n |    |– longitude: string (nullable \u003d true)\n |    |– metro: string (nullable \u003d true)\n |    |– networkDomain: string (nullable \u003d true)\n |    |– networkLocation: string (nullable \u003d true)\n |    |– region: string (nullable \u003d true)\n |    |– subContinent: string (nullable \u003d true)\n |– hits: array (nullable \u003d true)\n |    |– element: struct (containsNull \u003d true)\n |    |    |– appInfo: struct (nullable \u003d true)\n |    |    |    |– exitScreenName: string (nullable \u003d true)\n |    |    |    |– landingScreenName: string (nullable \u003d true)\n |    |    |    |– screenDepth: string (nullable \u003d true)\n |    |    |    |– screenName: string (nullable \u003d true)\n |    |    |– contentGroup: struct (nullable \u003d true)\n |    |    |    |– contentGroup1: string (nullable \u003d true)\n |    |    |    |– contentGroup2: string (nullable \u003d true)\n |    |    |    |– contentGroup3: string (nullable \u003d true)\n |    |    |    |– contentGroup4: string (nullable \u003d true)\n |    |    |    |– contentGroup5: string (nullable \u003d true)\n |    |    |    |– contentGroupUniqueViews1: string (nullable \u003d true)\n |    |    |    |– contentGroupUniqueViews2: string (nullable \u003d true)\n |    |    |    |– contentGroupUniqueViews3: string (nullable \u003d true)\n |    |    |    |– previousContentGroup1: string (nullable \u003d true)\n |    |    |    |– previousContentGroup2: string (nullable \u003d true)\n |    |    |    |– previousContentGroup3: string (nullable \u003d true)\n |    |    |    |– previousContentGroup4: string (nullable \u003d true)\n |    |    |    |– previousContentGroup5: string (nullable \u003d true)\n |    |    |– customDimensions: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– customMetrics: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– customVariables: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– dataSource: string (nullable \u003d true)\n |    |    |– eCommerceAction: struct (nullable \u003d true)\n |    |    |    |– action_type: string (nullable \u003d true)\n |    |    |    |– option: string (nullable \u003d true)\n |    |    |    |– step: string (nullable \u003d true)\n |    |    |– eventInfo: struct (nullable \u003d true)\n |    |    |    |– eventAction: string (nullable \u003d true)\n |    |    |    |– eventCategory: string (nullable \u003d true)\n |    |    |    |– eventLabel: string (nullable \u003d true)\n |    |    |– exceptionInfo: struct (nullable \u003d true)\n |    |    |    |– isFatal: boolean (nullable \u003d true)\n |    |    |– experiment: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– hitNumber: string (nullable \u003d true)\n |    |    |– hour: string (nullable \u003d true)\n |    |    |– isEntrance: boolean (nullable \u003d true)\n |    |    |– isExit: boolean (nullable \u003d true)\n |    |    |– isInteraction: boolean (nullable \u003d true)\n |    |    |– item: struct (nullable \u003d true)\n |    |    |    |– currencyCode: string (nullable \u003d true)\n |    |    |    |– transactionId: string (nullable \u003d true)\n |    |    |– latencyTracking: struct (nullable \u003d true)\n |    |    |    |– domContentLoadedTime: string (nullable \u003d true)\n |    |    |    |– domInteractiveTime: string (nullable \u003d true)\n |    |    |    |– domLatencyMetricsSample: string (nullable \u003d true)\n |    |    |    |– domainLookupTime: string (nullable \u003d true)\n |    |    |    |– pageDownloadTime: string (nullable \u003d true)\n |    |    |    |– pageLoadSample: string (nullable \u003d true)\n |    |    |    |– pageLoadTime: string (nullable \u003d true)\n |    |    |    |– redirectionTime: string (nullable \u003d true)\n |    |    |    |– serverConnectionTime: string (nullable \u003d true)\n |    |    |    |– serverResponseTime: string (nullable \u003d true)\n |    |    |    |– speedMetricsSample: string (nullable \u003d true)\n |    |    |– minute: string (nullable \u003d true)\n |    |    |– page: struct (nullable \u003d true)\n |    |    |    |– hostname: string (nullable \u003d true)\n |    |    |    |– pagePath: string (nullable \u003d true)\n |    |    |    |– pagePathLevel1: string (nullable \u003d true)\n |    |    |    |– pagePathLevel2: string (nullable \u003d true)\n |    |    |    |– pagePathLevel3: string (nullable \u003d true)\n |    |    |    |– pagePathLevel4: string (nullable \u003d true)\n |    |    |    |– pageTitle: string (nullable \u003d true)\n |    |    |    |– searchCategory: string (nullable \u003d true)\n |    |    |    |– searchKeyword: string (nullable \u003d true)\n |    |    |– product: array (nullable \u003d true)\n |    |    |    |– element: struct (containsNull \u003d true)\n |    |    |    |    |– customDimensions: array (nullable \u003d true)\n |    |    |    |    |    |– element: string (containsNull \u003d true)\n |    |    |    |    |– customMetrics: array (nullable \u003d true)\n |    |    |    |    |    |– element: string (containsNull \u003d true)\n |    |    |    |    |– isClick: boolean (nullable \u003d true)\n |    |    |    |    |– isImpression: boolean (nullable \u003d true)\n |    |    |    |    |– localProductPrice: string (nullable \u003d true)\n |    |    |    |    |– localProductRevenue: string (nullable \u003d true)\n |    |    |    |    |– productBrand: string (nullable \u003d true)\n |    |    |    |    |– productListName: string (nullable \u003d true)\n |    |    |    |    |– productListPosition: string (nullable \u003d true)\n |    |    |    |    |– productPrice: string (nullable \u003d true)\n |    |    |    |    |– productQuantity: string (nullable \u003d true)\n |    |    |    |    |– productRevenue: string (nullable \u003d true)\n |    |    |    |    |– productSKU: string (nullable \u003d true)\n |    |    |    |    |– productVariant: string (nullable \u003d true)\n |    |    |    |    |– v2ProductCategory: string (nullable \u003d true)\n |    |    |    |    |– v2ProductName: string (nullable \u003d true)\n |    |    |– promotion: array (nullable \u003d true)\n |    |    |    |– element: struct (containsNull \u003d true)\n |    |    |    |    |– promoCreative: string (nullable \u003d true)\n |    |    |    |    |– promoId: string (nullable \u003d true)\n |    |    |    |    |– promoName: string (nullable \u003d true)\n |    |    |    |    |– promoPosition: string (nullable \u003d true)\n |    |    |– promotionActionInfo: struct (nullable \u003d true)\n |    |    |    |– promoIsClick: boolean (nullable \u003d true)\n |    |    |    |– promoIsView: boolean (nullable \u003d true)\n |    |    |– publisher_infos: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– referer: string (nullable \u003d true)\n |    |    |– social: struct (nullable \u003d true)\n |    |    |    |– hasSocialSourceReferral: string (nullable \u003d true)\n |    |    |    |– socialInteractionNetworkAction: string (nullable \u003d true)\n |    |    |    |– socialNetwork: string (nullable \u003d true)\n |    |    |– time: string (nullable \u003d true)\n |    |    |– transaction: struct (nullable \u003d true)\n |    |    |    |– affiliation: string (nullable \u003d true)\n |    |    |    |– currencyCode: string (nullable \u003d true)\n |    |    |    |– localTransactionRevenue: string (nullable \u003d true)\n |    |    |    |– localTransactionShipping: string (nullable \u003d true)\n |    |    |    |– localTransactionTax: string (nullable \u003d true)\n |    |    |    |– transactionCoupon: string (nullable \u003d true)\n |    |    |    |– transactionId: string (nullable \u003d true)\n |    |    |    |– transactionRevenue: string (nullable \u003d true)\n |    |    |    |– transactionShipping: string (nullable \u003d true)\n |    |    |    |– transactionTax: string (nullable \u003d true)\n |    |    |– type: string (nullable \u003d true)\n |– socialEngagementType: string (nullable \u003d true)\n |– totals: struct (nullable \u003d true)\n |    |– bounces: string (nullable \u003d true)\n |    |– hits: string (nullable \u003d true)\n |    |– newVisits: string (nullable \u003d true)\n |    |– pageviews: string (nullable \u003d true)\n |    |– sessionQualityDim: string (nullable \u003d true)\n |    |– timeOnSite: string (nullable \u003d true)\n |    |– totalTransactionRevenue: string (nullable \u003d true)\n |    |– transactionRevenue: string (nullable \u003d true)\n |    |– transactions: string (nullable \u003d true)\n |    |– visits: string (nullable \u003d true)\n |– trafficSource: struct (nullable \u003d true)\n |    |– adContent: string (nullable \u003d true)\n |    |– adwordsClickInfo: struct (nullable \u003d true)\n |    |    |– adNetworkType: string (nullable \u003d true)\n |    |    |– criteriaParameters: string (nullable \u003d true)\n |    |    |– gclId: string (nullable \u003d true)\n |    |    |– isVideoAd: boolean (nullable \u003d true)\n |    |    |– page: string (nullable \u003d true)\n |    |    |– slot: string (nullable \u003d true)\n |    |– campaign: string (nullable \u003d true)\n |    |– campaignCode: string (nullable \u003d true)\n |    |– isTrueDirect: boolean (nullable \u003d true)\n |    |– keyword: string (nullable \u003d true)\n |    |– medium: string (nullable \u003d true)\n |    |– referralPath: string (nullable \u003d true)\n |    |– source: string (nullable \u003d true)\n |– visitId: string (nullable \u003d true)\n |– visitNumber: string (nullable \u003d true)\n |– visitStartTime: string (nullable \u003d true)\n\n\n\n"
       },
       "dateCreated": "Mar 19, 2019 4:47:18 PM",
-      "dateSubmitted": "May 14, 2019 8:14:24 PM",
-      "dateStarted": "May 14, 2019 8:14:28 PM",
-      "dateFinished": "May 14, 2019 8:18:14 PM",
+      "dateSubmitted": "May 17, 2019 8:24:24 PM",
+      "dateStarted": "May 17, 2019 8:24:24 PM",
+      "dateFinished": "May 17, 2019 8:26:02 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 1000
     },
@@ -52,7 +52,7 @@
       "title": "What are the top 3 device web browsers and the total transactions they generated?",
       "text": "%sql\nSELECT device.browser AS Browser, \nCAST( SUM ( totals.transactions ) AS INTEGER) AS Total_Transactions\nFROM data_all GROUP BY browser\nORDER BY total_transactions DESC Limit 3",
       "user": "preddy@qubole.com",
-      "dateUpdated": "May 17, 2019 8:06:14 PM",
+      "dateUpdated": "May 17, 2019 8:26:06 PM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -71,25 +71,65 @@
         "params": {},
         "forms": {}
       },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.5.188.29%3A8088%2Fproxy%2Fapplication_1558122376102_0001/jobs/job?spark\u003dtrue\u0026id\u003d1"
+          ],
+          "interpreterSettingId": "2CR3VEDTX11041500270198358"
+        }
+      },
       "paragraphProgress": {
-        "jobs": [],
-        "numCompletedTasks": 0,
-        "numTasks": 0,
+        "jobs": [
+          {
+            "id": 1,
+            "jobUrl": "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.5.188.29%3A8088%2Fproxy%2Fapplication_1558122376102_0001/jobs/job?spark\u003dtrue\u0026id\u003d1",
+            "numTasks": 309,
+            "numCompletedTasks": 309,
+            "stages": [
+              {
+                "id": 1,
+                "completed": true,
+                "stageUrl": "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.5.188.29%3A8088%2Fproxy%2Fapplication_1558122376102_0001/stages/stage/?id\u003d1\u0026attempt\u003d0",
+                "numCompleteTasks": 109,
+                "numActiveTasks": 0,
+                "numFailedTasks": 0,
+                "numTotalTasks": 109
+              },
+              {
+                "id": 2,
+                "completed": true,
+                "stageUrl": "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.5.188.29%3A8088%2Fproxy%2Fapplication_1558122376102_0001/stages/stage/?id\u003d2\u0026attempt\u003d0",
+                "numCompleteTasks": 200,
+                "numActiveTasks": 0,
+                "numFailedTasks": 0,
+                "numTotalTasks": 200
+              }
+            ],
+            "status": "Success"
+          }
+        ],
+        "numCompletedTasks": 309,
+        "numTasks": 309,
         "truncated": false
       },
       "version": "v1",
       "jobName": "paragraph_1558122565037_-932959077",
       "id": "20190517-194925_208169383_q_B752AUZNYQ1557612297",
       "result": {
-        "code": "ERROR",
-        "type": "TEXT",
-        "msg": "Table or view not found: data_all; line 3 pos 5\nset zeppelin.spark.sql.stacktrace \u003d true to see full stacktrace"
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "{\"exceeded\":-1,\"data\":[[\"Browser\",\"Total_Transactions\"],[\"Chrome\",\"10924\"],[\"Safari\",\"787\"],[\"Firefox\",\"207\"]]}"
       },
       "dateCreated": "May 17, 2019 7:49:25 PM",
-      "dateSubmitted": "May 17, 2019 8:05:30 PM",
-      "dateStarted": "May 17, 2019 8:05:34 PM",
-      "dateFinished": "May 17, 2019 8:06:33 PM",
-      "status": "ERROR",
+      "dateSubmitted": "May 17, 2019 8:26:06 PM",
+      "dateStarted": "May 17, 2019 8:26:06 PM",
+      "dateFinished": "May 17, 2019 8:27:33 PM",
+      "status": "FINISHED",
       "progressUpdateIntervalMs": 1000
     },
     {
