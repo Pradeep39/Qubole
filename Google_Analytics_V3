@@ -492,42 +492,6 @@
       "progressUpdateIntervalMs": 1000
     },
     {
-      "text": "%r\nlibrary(devtools)\ndevtools::install_github(\u0027spedygiorgio/markovchain\u0027)",
-      "user": "preddy@qubole.com",
-      "dateUpdated": "May 13, 2019 9:01:26 PM",
-      "config": {
-        "colWidth": 12.0,
-        "graph": {
-          "mode": "table",
-          "height": 300.0,
-          "optionOpen": false,
-          "keys": [],
-          "values": [],
-          "groups": [],
-          "scatter": {}
-        },
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "version": "v1",
-      "jobName": "paragraph_1557781126710_-675040119",
-      "id": "20190513-205846_2050087076_q_B752AUZNYQ1557612297",
-      "result": {
-        "code": "SUCCESS",
-        "type": "TEXT",
-        "msg": "\nchecking for file ‘/tmp/Rtmp3tYTxo/remotes2b62221706bf/spedygiorgio-markovchain-6ff9343/DESCRIPTION’ …\n\n✔  checking for file ‘/tmp/Rtmp3tYTxo/remotes2b62221706bf/spedygiorgio-markovchain-6ff9343/DESCRIPTION’\n\n─  preparing ‘markovchain’:\n\nchecking DESCRIPTION meta-information …\n\n✔  checking DESCRIPTION meta-information\n\n─  cleaning src\n\n─  checking for LF line-endings in source and make files\n\n─  checking for empty or unneeded directories\n\n─  looking to see if a ‘data/datalist’ file should be added\n─  building ‘markovchain_0.6.9.15.tar.gz’\n\nError in i.p(...): (converted from warning) installation of package \u0027/tmp/Rtmp3tYTxo/file2b626fe8e8ea/markovchain_0.6.9.15.tar.gz\u0027 had non-zero exit status\n\n\n\n\n"
-      },
-      "dateCreated": "May 13, 2019 8:58:46 PM",
-      "dateSubmitted": "May 13, 2019 9:01:26 PM",
-      "dateStarted": "May 13, 2019 9:01:26 PM",
-      "dateFinished": "May 13, 2019 9:01:32 PM",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 1000
-    },
-    {
       "text": "%r\nlibrary(googleVis)\nop \u003c- options(gvis.plot.tag\u003d\u0027chart\u0027)\n\nC \u003c- M$transition_matrix\n\nC \u003c- gvisTable(M$transition_matrix)\nplot(C)",
       "user": "preddy@qubole.com",
       "dateUpdated": "May 14, 2019 9:10:13 PM",
