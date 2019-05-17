@@ -1,0 +1,628 @@
+{
+  "paragraphs": [
+    {
+      "text": "%r\nrows \u003c- read.json(sqlContext,\"s3://qubole-preddy.us/datasets/google_analytics/all_data/\")\ncreateOrReplaceTempView(rows,\"data_all\")\nprintSchema(rows)\n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 8:14:24 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d0"
+          ],
+          "interpreterSettingId": "2CR3VEDTX11041500270198358"
+        }
+      },
+      "version": "v1",
+      "jobName": "paragraph_1553014038681_191077726",
+      "id": "20190319-164718_774647702_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nroot\n |– channelGrouping: string (nullable \u003d true)\n |– customDimensions: array (nullable \u003d true)\n |    |– element: struct (containsNull \u003d true)\n |    |    |– index: string (nullable \u003d true)\n |    |    |– value: string (nullable \u003d true)\n |– date: string (nullable \u003d true)\n |– device: struct (nullable \u003d true)\n |    |– browser: string (nullable \u003d true)\n |    |– browserSize: string (nullable \u003d true)\n |    |– browserVersion: string (nullable \u003d true)\n |    |– deviceCategory: string (nullable \u003d true)\n |    |– flashVersion: string (nullable \u003d true)\n |    |– isMobile: boolean (nullable \u003d true)\n |    |– language: string (nullable \u003d true)\n |    |– mobileDeviceBranding: string (nullable \u003d true)\n |    |– mobileDeviceInfo: string (nullable \u003d true)\n |    |– mobileDeviceMarketingName: string (nullable \u003d true)\n |    |– mobileDeviceModel: string (nullable \u003d true)\n |    |– mobileInputSelector: string (nullable \u003d true)\n |    |– operatingSystem: string (nullable \u003d true)\n |    |– operatingSystemVersion: string (nullable \u003d true)\n |    |– screenColors: string (nullable \u003d true)\n |    |– screenResolution: string (nullable \u003d true)\n |– fullVisitorId: string (nullable \u003d true)\n |– geoNetwork: struct (nullable \u003d true)\n |    |– city: string (nullable \u003d true)\n |    |– cityId: string (nullable \u003d true)\n |    |– continent: string (nullable \u003d true)\n |    |– country: string (nullable \u003d true)\n |    |– latitude: string (nullable \u003d true)\n |    |– longitude: string (nullable \u003d true)\n |    |– metro: string (nullable \u003d true)\n |    |– networkDomain: string (nullable \u003d true)\n |    |– networkLocation: string (nullable \u003d true)\n |    |– region: string (nullable \u003d true)\n |    |– subContinent: string (nullable \u003d true)\n |– hits: array (nullable \u003d true)\n |    |– element: struct (containsNull \u003d true)\n |    |    |– appInfo: struct (nullable \u003d true)\n |    |    |    |– exitScreenName: string (nullable \u003d true)\n |    |    |    |– landingScreenName: string (nullable \u003d true)\n |    |    |    |– screenDepth: string (nullable \u003d true)\n |    |    |    |– screenName: string (nullable \u003d true)\n |    |    |– contentGroup: struct (nullable \u003d true)\n |    |    |    |– contentGroup1: string (nullable \u003d true)\n |    |    |    |– contentGroup2: string (nullable \u003d true)\n |    |    |    |– contentGroup3: string (nullable \u003d true)\n |    |    |    |– contentGroup4: string (nullable \u003d true)\n |    |    |    |– contentGroup5: string (nullable \u003d true)\n |    |    |    |– contentGroupUniqueViews1: string (nullable \u003d true)\n |    |    |    |– contentGroupUniqueViews2: string (nullable \u003d true)\n |    |    |    |– contentGroupUniqueViews3: string (nullable \u003d true)\n |    |    |    |– previousContentGroup1: string (nullable \u003d true)\n |    |    |    |– previousContentGroup2: string (nullable \u003d true)\n |    |    |    |– previousContentGroup3: string (nullable \u003d true)\n |    |    |    |– previousContentGroup4: string (nullable \u003d true)\n |    |    |    |– previousContentGroup5: string (nullable \u003d true)\n |    |    |– customDimensions: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– customMetrics: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– customVariables: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– dataSource: string (nullable \u003d true)\n |    |    |– eCommerceAction: struct (nullable \u003d true)\n |    |    |    |– action_type: string (nullable \u003d true)\n |    |    |    |– option: string (nullable \u003d true)\n |    |    |    |– step: string (nullable \u003d true)\n |    |    |– eventInfo: struct (nullable \u003d true)\n |    |    |    |– eventAction: string (nullable \u003d true)\n |    |    |    |– eventCategory: string (nullable \u003d true)\n |    |    |    |– eventLabel: string (nullable \u003d true)\n |    |    |– exceptionInfo: struct (nullable \u003d true)\n |    |    |    |– isFatal: boolean (nullable \u003d true)\n |    |    |– experiment: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– hitNumber: string (nullable \u003d true)\n |    |    |– hour: string (nullable \u003d true)\n |    |    |– isEntrance: boolean (nullable \u003d true)\n |    |    |– isExit: boolean (nullable \u003d true)\n |    |    |– isInteraction: boolean (nullable \u003d true)\n |    |    |– item: struct (nullable \u003d true)\n |    |    |    |– currencyCode: string (nullable \u003d true)\n |    |    |    |– transactionId: string (nullable \u003d true)\n |    |    |– latencyTracking: struct (nullable \u003d true)\n |    |    |    |– domContentLoadedTime: string (nullable \u003d true)\n |    |    |    |– domInteractiveTime: string (nullable \u003d true)\n |    |    |    |– domLatencyMetricsSample: string (nullable \u003d true)\n |    |    |    |– domainLookupTime: string (nullable \u003d true)\n |    |    |    |– pageDownloadTime: string (nullable \u003d true)\n |    |    |    |– pageLoadSample: string (nullable \u003d true)\n |    |    |    |– pageLoadTime: string (nullable \u003d true)\n |    |    |    |– redirectionTime: string (nullable \u003d true)\n |    |    |    |– serverConnectionTime: string (nullable \u003d true)\n |    |    |    |– serverResponseTime: string (nullable \u003d true)\n |    |    |    |– speedMetricsSample: string (nullable \u003d true)\n |    |    |– minute: string (nullable \u003d true)\n |    |    |– page: struct (nullable \u003d true)\n |    |    |    |– hostname: string (nullable \u003d true)\n |    |    |    |– pagePath: string (nullable \u003d true)\n |    |    |    |– pagePathLevel1: string (nullable \u003d true)\n |    |    |    |– pagePathLevel2: string (nullable \u003d true)\n |    |    |    |– pagePathLevel3: string (nullable \u003d true)\n |    |    |    |– pagePathLevel4: string (nullable \u003d true)\n |    |    |    |– pageTitle: string (nullable \u003d true)\n |    |    |    |– searchCategory: string (nullable \u003d true)\n |    |    |    |– searchKeyword: string (nullable \u003d true)\n |    |    |– product: array (nullable \u003d true)\n |    |    |    |– element: struct (containsNull \u003d true)\n |    |    |    |    |– customDimensions: array (nullable \u003d true)\n |    |    |    |    |    |– element: string (containsNull \u003d true)\n |    |    |    |    |– customMetrics: array (nullable \u003d true)\n |    |    |    |    |    |– element: string (containsNull \u003d true)\n |    |    |    |    |– isClick: boolean (nullable \u003d true)\n |    |    |    |    |– isImpression: boolean (nullable \u003d true)\n |    |    |    |    |– localProductPrice: string (nullable \u003d true)\n |    |    |    |    |– localProductRevenue: string (nullable \u003d true)\n |    |    |    |    |– productBrand: string (nullable \u003d true)\n |    |    |    |    |– productListName: string (nullable \u003d true)\n |    |    |    |    |– productListPosition: string (nullable \u003d true)\n |    |    |    |    |– productPrice: string (nullable \u003d true)\n |    |    |    |    |– productQuantity: string (nullable \u003d true)\n |    |    |    |    |– productRevenue: string (nullable \u003d true)\n |    |    |    |    |– productSKU: string (nullable \u003d true)\n |    |    |    |    |– productVariant: string (nullable \u003d true)\n |    |    |    |    |– v2ProductCategory: string (nullable \u003d true)\n |    |    |    |    |– v2ProductName: string (nullable \u003d true)\n |    |    |– promotion: array (nullable \u003d true)\n |    |    |    |– element: struct (containsNull \u003d true)\n |    |    |    |    |– promoCreative: string (nullable \u003d true)\n |    |    |    |    |– promoId: string (nullable \u003d true)\n |    |    |    |    |– promoName: string (nullable \u003d true)\n |    |    |    |    |– promoPosition: string (nullable \u003d true)\n |    |    |– promotionActionInfo: struct (nullable \u003d true)\n |    |    |    |– promoIsClick: boolean (nullable \u003d true)\n |    |    |    |– promoIsView: boolean (nullable \u003d true)\n |    |    |– publisher_infos: array (nullable \u003d true)\n |    |    |    |– element: string (containsNull \u003d true)\n |    |    |– referer: string (nullable \u003d true)\n |    |    |– social: struct (nullable \u003d true)\n |    |    |    |– hasSocialSourceReferral: string (nullable \u003d true)\n |    |    |    |– socialInteractionNetworkAction: string (nullable \u003d true)\n |    |    |    |– socialNetwork: string (nullable \u003d true)\n |    |    |– time: string (nullable \u003d true)\n |    |    |– transaction: struct (nullable \u003d true)\n |    |    |    |– affiliation: string (nullable \u003d true)\n |    |    |    |– currencyCode: string (nullable \u003d true)\n |    |    |    |– localTransactionRevenue: string (nullable \u003d true)\n |    |    |    |– localTransactionShipping: string (nullable \u003d true)\n |    |    |    |– localTransactionTax: string (nullable \u003d true)\n |    |    |    |– transactionCoupon: string (nullable \u003d true)\n |    |    |    |– transactionId: string (nullable \u003d true)\n |    |    |    |– transactionRevenue: string (nullable \u003d true)\n |    |    |    |– transactionShipping: string (nullable \u003d true)\n |    |    |    |– transactionTax: string (nullable \u003d true)\n |    |    |– type: string (nullable \u003d true)\n |– socialEngagementType: string (nullable \u003d true)\n |– totals: struct (nullable \u003d true)\n |    |– bounces: string (nullable \u003d true)\n |    |– hits: string (nullable \u003d true)\n |    |– newVisits: string (nullable \u003d true)\n |    |– pageviews: string (nullable \u003d true)\n |    |– sessionQualityDim: string (nullable \u003d true)\n |    |– timeOnSite: string (nullable \u003d true)\n |    |– totalTransactionRevenue: string (nullable \u003d true)\n |    |– transactionRevenue: string (nullable \u003d true)\n |    |– transactions: string (nullable \u003d true)\n |    |– visits: string (nullable \u003d true)\n |– trafficSource: struct (nullable \u003d true)\n |    |– adContent: string (nullable \u003d true)\n |    |– adwordsClickInfo: struct (nullable \u003d true)\n |    |    |– adNetworkType: string (nullable \u003d true)\n |    |    |– criteriaParameters: string (nullable \u003d true)\n |    |    |– gclId: string (nullable \u003d true)\n |    |    |– isVideoAd: boolean (nullable \u003d true)\n |    |    |– page: string (nullable \u003d true)\n |    |    |– slot: string (nullable \u003d true)\n |    |– campaign: string (nullable \u003d true)\n |    |– campaignCode: string (nullable \u003d true)\n |    |– isTrueDirect: boolean (nullable \u003d true)\n |    |– keyword: string (nullable \u003d true)\n |    |– medium: string (nullable \u003d true)\n |    |– referralPath: string (nullable \u003d true)\n |    |– source: string (nullable \u003d true)\n |– visitId: string (nullable \u003d true)\n |– visitNumber: string (nullable \u003d true)\n |– visitStartTime: string (nullable \u003d true)\n\n\n\n"
+      },
+      "dateCreated": "Mar 19, 2019 4:47:18 PM",
+      "dateSubmitted": "May 14, 2019 8:14:24 PM",
+      "dateStarted": "May 14, 2019 8:14:28 PM",
+      "dateFinished": "May 14, 2019 8:18:14 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "title": "What are the top 3 device web browsers and the total transactions they generated?",
+      "text": "%sql\nSELECT device.browser AS Browser, \nCAST( SUM ( totals.transactions ) AS INTEGER) AS Total_Transactions\nFROM data_all GROUP BY browser\nORDER BY total_transactions DESC Limit 3",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 17, 2019 8:06:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "paragraphProgress": {
+        "jobs": [],
+        "numCompletedTasks": 0,
+        "numTasks": 0,
+        "truncated": false
+      },
+      "version": "v1",
+      "jobName": "paragraph_1558122565037_-932959077",
+      "id": "20190517-194925_208169383_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "ERROR",
+        "type": "TEXT",
+        "msg": "Table or view not found: data_all; line 3 pos 5\nset zeppelin.spark.sql.stacktrace \u003d true to see full stacktrace"
+      },
+      "dateCreated": "May 17, 2019 7:49:25 PM",
+      "dateSubmitted": "May 17, 2019 8:05:30 PM",
+      "dateStarted": "May 17, 2019 8:05:34 PM",
+      "dateFinished": "May 17, 2019 8:06:33 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "title": "What was the average number of product page views for users who did and did not make a purchase?",
+      "text": "%sql\n--What was the average number of product pageviews for users who made a purchase and who did not?\nWITH total_user_pageviews AS\n(\n SELECT fullVisitorId AS users,\n    SUM(totals.pageviews) AS total_pageviews_per_user, \n    case when totals.transactions\u003e\u003d1 THEN \u0027Yes\u0027 \n         when totals.transactions is null THEN \u0027No\u0027 \n    end as converted_user\n FROM data_all\n group by users,converted_user\n) \nselect * from total_user_pageviews\nPIVOT (\n  CAST(SUM(total_pageviews_per_user)/COUNT(users) AS DECIMAL(4, 2))\n  FOR converted_user in \n   (\u0027No\u0027 avg_pageviews_no_conversion, \u0027Yes\u0027 avg_pageviews_conversion)\n)\n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 17, 2019 8:06:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "paragraphProgress": {
+        "jobs": [],
+        "numCompletedTasks": 0,
+        "numTasks": 0,
+        "truncated": false
+      },
+      "version": "v1",
+      "jobName": "paragraph_1553526534533_-131635116",
+      "id": "20190325-150854_1381964298_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "ERROR",
+        "type": "TEXT",
+        "msg": "Table or view not found: data_all; line 9 pos 6\nset zeppelin.spark.sql.stacktrace \u003d true to see full stacktrace"
+      },
+      "dateCreated": "Mar 25, 2019 3:08:54 PM",
+      "dateSubmitted": "May 14, 2019 8:14:43 PM",
+      "dateStarted": "May 14, 2019 8:14:43 PM",
+      "dateFinished": "May 14, 2019 8:15:18 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nconversions_reconciled \u003c- sql(\n\"with \n\nconversions as (select fullVisitorId,min(visitNumber) convertedVisitNumber from \n(select fullVisitorId,visitNumber from data_all where totals.transactions \u003e\u003d 1) \ngroup by fullVisitorId) ,\n \nall as (select fullVisitorId, visitId, visitNumber, \nvisitStartTime, date, channelGrouping,totals.* from data_all as all) \n\nselect all.*,\nconversions.convertedVisitNumber \nfrom all, conversions where all.fullVisitorId\u003dconversions.fullVisitorId\")\n\ncreateOrReplaceTempView(conversions_reconciled,\"conversions_reconciled\")\n\nconversions_final \u003c- sql(\"select * from conversions_reconciled \nwhere visitNumber\u003c\u003dconvertedVisitNumber \norder by fullVisitorId, visitNumber asc\")\n\ncreateOrReplaceTempView(conversions_final,\"conversions_final\")\n\nchannelGroupingConversions \u003c- sql(\"with cf as\n(\nselect fullVisitorId,concat_ws(\u0027 \u003e \u0027, collect_list(channelGrouping)) \nchannelGroupings,sum(totalTransactionRevenue/1000000) transactionValue \nfrom conversions_final group by fullVisitorId \n)\nselect REPLACE(channelGroupings, \u0027(Other)\u0027, \u0027Other\u0027) as channelGroupings, count(fullVisitorId) as total_conversions, \nsum(transactionValue) total_transaction_value from cf \ngroup by channelGroupings\")\n\nchannelGroupingConversions \u003c- cache(channelGroupingConversions)\n\ncreateOrReplaceTempView(channelGroupingConversions,\"channelGroupingConv\")\n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:06:13 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "fullVisitorId",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "visitId",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "fullVisitorId",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "visitId",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1553205087204_-1905789480",
+      "id": "20190321-215127_702302167_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n\n\n"
+      },
+      "dateCreated": "Mar 21, 2019 9:51:27 PM",
+      "dateSubmitted": "May 14, 2019 9:06:13 PM",
+      "dateStarted": "May 14, 2019 9:06:13 PM",
+      "dateFinished": "May 14, 2019 9:06:13 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\n#install.packages(\"data.table\",repos \u003d \"http://cran.us.r-project.org\",quiet \u003d TRUE, clean\u003dTRUE)\n#install.packages(\"ChannelAttribution\",version \u003d \"1.16\",repos \u003d \"http://cran.us.r-project.org\", quiet \u003d TRUE, clean\u003dTRUE)\nlibrary(data.table)\nlibrary(ChannelAttribution)\n\nsinglePartDF\u003c-repartition(channelGroupingConversions,1)\ncolnames\u003dcolnames(singlePartDF)\n\n#write to HDFS as collect will be counter productive.\nwrite.df(singlePartDF, \"/tmp/channelGroupings.csv\",\"csv\", header\u003d\"true\",\n mode\u003d\"overwrite\")\n\n## download to master node and then load the data into \n## R local memory running in Master\nsystem(\"rm -rf /tmp/channelGroupings.csv\")\nsystem(\"hadoop fs -get /tmp/channelGroupings.csv/part* /tmp/channelGroupings.csv\")\nsystem(\"hadoop fs -rmr /tmp/channelGroupings.csv\")\n\nchannelgroupings_r_df \u003c- fread(\"/tmp/channelGroupings.csv\",col.names\u003dcolnames)\n\n\n\n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:06:17 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d7",
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d8"
+          ],
+          "interpreterSettingId": "2CR3VEDTX11041500270198358"
+        }
+      },
+      "version": "v1",
+      "jobName": "paragraph_1553017472525_588735407",
+      "id": "20190319-174432_1940042143_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n\n\n"
+      },
+      "dateCreated": "Mar 19, 2019 5:44:32 PM",
+      "dateSubmitted": "May 14, 2019 9:06:18 PM",
+      "dateStarted": "May 14, 2019 9:06:18 PM",
+      "dateFinished": "May 14, 2019 9:09:18 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nH \u003c- heuristic_models(channelgroupings_r_df, \u0027channelGroupings\u0027, \u0027total_conversions\u0027, var_value\u003d\u0027total_transaction_value\u0027)\nM \u003c- markov_model(channelgroupings_r_df, \u0027channelGroupings\u0027, \u0027total_conversions\u0027, var_value\u003d\u0027total_transaction_value\u0027, order\u003d1, seed\u003d11, out_more\u003dTRUE) \nR \u003c- merge(H, M$result , by\u003d\u0027channel_name\u0027)\nR",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:09:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1553287985356_-670339899",
+      "id": "20190322-205305_1135995843_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nchannel_name first_touch_conversions first_touch_value\n\n\n1     Affiliates                      10            686.66\n2         Direct                    2193         417273.71\n3        Display                     132          15324.75\n4 Organic Search                    3157         324464.16\n5          Other                       1             11.99\n6    Paid Search                     441          37590.03\n7       Referral                    4004         472790.59\n8         Social                      84           5893.37\n  last_touch_conversions last_touch_value linear_touch_conversions\n1                      9           654.38                 9.833333\n2                   1715        338360.61              1924.717306\n3                    114         17077.73               132.773647\n4                   3115        304122.38              3138.420563\n5                      1            11.99                 1.230769\n6                    417         35588.05               431.726804\n7                   4553        570577.26              4291.972145\n8                     98          7642.86                91.325433\n  linear_touch_value total_conversions total_conversion_value\n1          701.96500         11.405089               987.5237\n2       361864.36888       1962.197688            351759.8854\n3        17401.95841        186.320848             24877.4162\n4       324082.03695       3110.611800            317491.9453\n5           19.12769          1.645467               113.4808\n6        36278.83000        499.133710             46323.6464\n7       526666.38795       4144.496182            523065.9828\n8         7020.58511        106.189215              9415.3794\n\n\n\n"
+      },
+      "dateCreated": "Mar 22, 2019 8:53:05 PM",
+      "dateSubmitted": "May 14, 2019 9:09:21 PM",
+      "dateStarted": "May 14, 2019 9:09:21 PM",
+      "dateFinished": "May 14, 2019 9:09:40 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nshowDF(createDataFrame(M$result))",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:09:51 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d9",
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d10"
+          ],
+          "interpreterSettingId": "2CR3VEDTX11041500270198358"
+        }
+      },
+      "version": "v1",
+      "jobName": "paragraph_1557205271801_1145016157",
+      "id": "20190507-050111_1600956236_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\n+————–+——————+———————-+\n|  channel_name| total_conversions|total_conversion_value|\n+————–+——————+———————-+\n|   Paid Search| 499.1337104097948|     46323.64641187214|\n|       Display|186.32084799637227|     24877.41624583461|\n|Organic Search| 3110.611800333062|    317491.94526277354|\n|      Referral| 4144.496182470028|    523065.98282538116|\n|        Direct|1962.1976880249701|    351759.88538723066|\n|        Social|106.18921466341538|     9415.379424175373|\n|         Other|1.6454670469283847|    113.48075604560972|\n|    Affiliates|11.405089055429544|     987.5236866863582|\n+————–+——————+———————-+\n\n\n\n"
+      },
+      "dateCreated": "May 7, 2019 5:01:11 AM",
+      "dateSubmitted": "May 14, 2019 9:09:51 PM",
+      "dateStarted": "May 14, 2019 9:09:51 PM",
+      "dateFinished": "May 14, 2019 9:09:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "showDF(createDataFrame(H))",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:09:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/r"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "JOB UI",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d11",
+            "https://us.qubole.com/cluster-proxy?encodedUrl\u003dhttp%3A%2F%2F10.7.223.108%3A8088%2Fproxy%2Fapplication_1557864741660_0001/jobs/job?spark\u003dtrue\u0026id\u003d12"
+          ],
+          "interpreterSettingId": "2CR3VEDTX11041500270198358"
+        }
+      },
+      "version": "v1",
+      "jobName": "paragraph_1557205276687_-411308468",
+      "id": "20190507-050116_191148917_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\n+————–+———————–+——————+———————-+——————+————————+——————+\n|  channel_name|first_touch_conversions| first_touch_value|last_touch_conversions|  last_touch_value|linear_touch_conversions|linear_touch_value|\n+————–+———————–+——————+———————-+——————+————————+——————+\n|   Paid Search|                  441.0| 37590.02999999998|                 417.0| 35588.04999999999|      431.72680375180374|36278.830004689735|\n|       Display|                  132.0|15324.749999999998|                 114.0|          17077.73|      132.77364718614717|17401.958410006653|\n|Organic Search|                 3157.0| 324464.1599999999|                3115.0| 304122.3799999998|      3138.4205629116914| 324082.0369476852|\n|      Referral|                 4004.0|         472790.59|                4553.0| 570577.2599999995|       4291.972144504961| 526666.3879521075|\n|        Direct|                 2193.0| 417273.7099999999|                1715.0|         338360.61|        1924.71730618086| 361864.3688795672|\n|        Social|                   84.0| 5893.370000000001|                  98.0|7642.8600000000015|       91.32543290043292|7020.5851136363635|\n|         Other|                    1.0|             11.99|                   1.0|             11.99|      1.2307692307692308|19.127692307692307|\n|    Affiliates|                   10.0| 686.6600000000001|                   9.0| 654.3800000000001|       9.833333333333332|           701.965|\n+————–+———————–+——————+———————-+——————+————————+——————+\n\n\n\n"
+      },
+      "dateCreated": "May 7, 2019 5:01:16 AM",
+      "dateSubmitted": "May 14, 2019 9:09:56 PM",
+      "dateStarted": "May 14, 2019 9:09:56 PM",
+      "dateFinished": "May 14, 2019 9:09:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nlibrary(googleVis)\nop \u003c- options(gvis.plot.tag\u003d\u0027chart\u0027)\n\n# Selects only relevant columns\nR1 \u003c- R[, (colnames(R)%in%c(\u0027channel_name\u0027, \u0027first_touch_conversions\u0027, \u0027last_touch_conversions\u0027, \u0027linear_touch_conversions\u0027, \u0027total_conversions\u0027))]\n\n# Renames the columns\ncolnames(R1) \u003c- c(\u0027channel_name\u0027, \u0027first_touch\u0027, \u0027last_touch\u0027, \u0027linear_touch\u0027, \u0027markov_model\u0027) \n\nC \u003c- gvisColumnChart(R1, xvar\u003d\"channel_name\", yvar\u003dc(\"first_touch\", \"last_touch\",\"linear_touch\",\"markov_model\"),\n                        options\u003dlist(title\u003d \u0027Total Number of Coversions by Channel\u0027,\n                        titleTextStyle\u003d\"{ fontName:\u0027Courier\u0027, fontSize:36}\",\n                        isStacked\u003dFALSE, vAxis\u003d\"{title:\u0027Total Number of Coversions\u0027}\",\n                            hAxis\u003d\"{title:\u0027Channels\u0027}\",height\u003d800))\n\nplot(C)\n\n",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:09:59 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1557177469147_358612420",
+      "id": "20190506-211749_1919782084_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\u003c!-- ColumnChart generated in R 3.3.2 by googleVis 0.6.3 package --\u003e\n\n\u003c!-- Tue May 14 21:09:59 2019 --\u003e\n\n\u003c!-- jsHeader --\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\n \n// jsData \nfunction gvisDataColumnChartID6ec23e004147 () {\nvar data \u003d new google.visualization.DataTable();\nvar datajson \u003d\n[\n [\n\"Affiliates\",\n10,\n9,\n9.833333333,\n11.40508906\n],\n[\n\"Direct\",\n2193,\n1715,\n1924.717306,\n1962.197688\n],\n[\n\"Display\",\n132,\n114,\n132.7736472,\n186.320848\n],\n[\n\"Organic Search\",\n3157,\n3115,\n3138.420563,\n3110.6118\n],\n[\n\"Other\",\n1,\n1,\n1.230769231,\n1.645467047\n],\n[\n\"Paid Search\",\n441,\n417,\n431.7268038,\n499.1337104\n],\n[\n\"Referral\",\n4004,\n4553,\n4291.972145,\n4144.496182\n],\n[\n\"Social\",\n84,\n98,\n91.3254329,\n106.1892147\n] \n];\ndata.addColumn(\u0027string\u0027,\u0027channel_name\u0027);\ndata.addColumn(\u0027number\u0027,\u0027first_touch\u0027);\ndata.addColumn(\u0027number\u0027,\u0027last_touch\u0027);\ndata.addColumn(\u0027number\u0027,\u0027linear_touch\u0027);\ndata.addColumn(\u0027number\u0027,\u0027markov_model\u0027);\ndata.addRows(datajson);\nreturn(data);\n}\n \n// jsDrawChart\nfunction drawChartColumnChartID6ec23e004147() {\nvar data \u003d gvisDataColumnChartID6ec23e004147();\nvar options \u003d {};\noptions[\"allowHtml\"] \u003d true;\noptions[\"title\"] \u003d \"Total Number of Coversions by Channel\";\noptions[\"titleTextStyle\"] \u003d { fontName:\u0027Courier\u0027, fontSize:36};\noptions[\"isStacked\"] \u003d false;\noptions[\"vAxis\"] \u003d {title:\u0027Total Number of Coversions\u0027};\noptions[\"hAxis\"] \u003d {title:\u0027Channels\u0027};\noptions[\"height\"] \u003d 800;\n\n    var chart \u003d new google.visualization.ColumnChart(\n    document.getElementById(\u0027ColumnChartID6ec23e004147\u0027)\n    );\n    chart.draw(data,options);\n    \n\n}\n  \n \n// jsDisplayChart\n(function() {\nvar pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\nvar callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\nvar chartid \u003d \"corechart\";\n  \n// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)\nvar i, newPackage \u003d true;\nfor (i \u003d 0; newPackage \u0026\u0026 i \u003c pkgs.length; i++) {\nif (pkgs[i] \u003d\u003d\u003d chartid)\nnewPackage \u003d false;\n}\nif (newPackage)\n  pkgs.push(chartid);\n  \n// Add the drawChart function to the global list of callbacks\ncallbacks.push(drawChartColumnChartID6ec23e004147);\n})();\nfunction displayChartColumnChartID6ec23e004147() {\n  var pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\n  var callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\n  window.clearTimeout(window.__gvisLoad);\n  // The timeout is set to 100 because otherwise the container div we are\n  // targeting might not be part of the document yet\n  window.__gvisLoad \u003d setTimeout(function() {\n  var pkgCount \u003d pkgs.length;\n  google.load(\"visualization\", \"1\", { packages:pkgs, callback: function() {\n  if (pkgCount !\u003d pkgs.length) {\n  // Race condition where another setTimeout call snuck in after us; if\n  // that call added a package, we must not shift its callback\n  return;\n}\nwhile (callbacks.length \u003e 0)\ncallbacks.shift()();\n} });\n}, 100);\n}\n \n// jsFooter\n\u003c/script\u003e\n \n\n\u003c!-- jsChart --\u003e  \n\n\u003cscript type\u003d\"text/javascript\" src\u003d\"https://www.google.com/jsapi?callback\u003ddisplayChartColumnChartID6ec23e004147\"\u003e\u003c/script\u003e\n \n\n\u003c!-- divChart --\u003e\n\n\u003cdiv id\u003d\"ColumnChartID6ec23e004147\" style\u003d\"width: 500; height: 800;\"\u003e\n\u003c/div\u003e\n\n\n\n"
+      },
+      "dateCreated": "May 6, 2019 9:17:49 PM",
+      "dateSubmitted": "May 14, 2019 9:09:59 PM",
+      "dateStarted": "May 14, 2019 9:09:59 PM",
+      "dateFinished": "May 14, 2019 9:09:59 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nlibrary(googleVis)\nop \u003c- options(gvis.plot.tag\u003d\u0027chart\u0027)\n\n\n# Selects only relevant columns\nR2 \u003c- R[, (colnames(R)%in%c(\u0027channel_name\u0027, \u0027first_touch_value\u0027, \n\u0027last_touch_value\u0027, \u0027linear_touch_value\u0027, \u0027total_conversion_value\u0027))]\n\n\n# Renames the columns\ncolnames(R2) \u003c- c(\u0027channel_name\u0027, \u0027first_touch\u0027, \u0027last_touch\u0027, \n\u0027linear_touch\u0027, \u0027markov_model\u0027) \n\n\nC \u003c- gvisColumnChart(R2, xvar\u003d\"channel_name\", yvar\u003dc(\"first_touch\", \n\"last_touch\",\"linear_touch\",\"markov_model\"),\noptions\u003dlist(isStacked\u003dFALSE,\n                title\u003d \u0027Total Conversion Value by Channel\u0027,\n                titleTextStyle\u003d\"{ fontName:\u0027Courier\u0027, fontSize:36}\",\n                vAxis\u003d\"{title:\u0027Conversion Value in $$\u0027}\",\n                hAxis\u003d\"{title:\u0027Channels\u0027}\", height\u003d800))\n                            \nplot(C)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:10:05 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1557207538406_-1813516826",
+      "id": "20190507-053858_1853459363_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\u003c!-- ColumnChart generated in R 3.3.2 by googleVis 0.6.3 package --\u003e\n\n\u003c!-- Tue May 14 21:10:05 2019 --\u003e\n\n\u003c!-- jsHeader --\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\n \n// jsData \nfunction gvisDataColumnChartID6ec25b44fb17 () {\nvar data \u003d new google.visualization.DataTable();\nvar datajson \u003d\n[\n [\n\"Affiliates\",\n686.66,\n654.38,\n701.965,\n987.5236867\n],\n[\n\"Direct\",\n417273.71,\n338360.61,\n361864.3689,\n351759.8854\n],\n[\n\"Display\",\n15324.75,\n17077.73,\n17401.95841,\n24877.41625\n],\n[\n\"Organic Search\",\n324464.16,\n304122.38,\n324082.0369,\n317491.9453\n],\n[\n\"Other\",\n11.99,\n11.99,\n19.12769231,\n113.480756\n],\n[\n\"Paid Search\",\n37590.03,\n35588.05,\n36278.83,\n46323.64641\n],\n[\n\"Referral\",\n472790.59,\n570577.26,\n526666.388,\n523065.9828\n],\n[\n\"Social\",\n5893.37,\n7642.86,\n7020.585114,\n9415.379424\n] \n];\ndata.addColumn(\u0027string\u0027,\u0027channel_name\u0027);\ndata.addColumn(\u0027number\u0027,\u0027first_touch\u0027);\ndata.addColumn(\u0027number\u0027,\u0027last_touch\u0027);\ndata.addColumn(\u0027number\u0027,\u0027linear_touch\u0027);\ndata.addColumn(\u0027number\u0027,\u0027markov_model\u0027);\ndata.addRows(datajson);\nreturn(data);\n}\n \n// jsDrawChart\nfunction drawChartColumnChartID6ec25b44fb17() {\nvar data \u003d gvisDataColumnChartID6ec25b44fb17();\nvar options \u003d {};\noptions[\"allowHtml\"] \u003d true;\noptions[\"isStacked\"] \u003d false;\noptions[\"title\"] \u003d \"Total Conversion Value by Channel\";\noptions[\"titleTextStyle\"] \u003d { fontName:\u0027Courier\u0027, fontSize:36};\noptions[\"vAxis\"] \u003d {title:\u0027Conversion Value in $$\u0027};\noptions[\"hAxis\"] \u003d {title:\u0027Channels\u0027};\noptions[\"height\"] \u003d 800;\n\n    var chart \u003d new google.visualization.ColumnChart(\n    document.getElementById(\u0027ColumnChartID6ec25b44fb17\u0027)\n    );\n    chart.draw(data,options);\n    \n\n}\n  \n \n// jsDisplayChart\n(function() {\nvar pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\nvar callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\nvar chartid \u003d \"corechart\";\n  \n// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)\nvar i, newPackage \u003d true;\nfor (i \u003d 0; newPackage \u0026\u0026 i \u003c pkgs.length; i++) {\nif (pkgs[i] \u003d\u003d\u003d chartid)\nnewPackage \u003d false;\n}\nif (newPackage)\n  pkgs.push(chartid);\n  \n// Add the drawChart function to the global list of callbacks\ncallbacks.push(drawChartColumnChartID6ec25b44fb17);\n})();\nfunction displayChartColumnChartID6ec25b44fb17() {\n  var pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\n  var callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\n  window.clearTimeout(window.__gvisLoad);\n  // The timeout is set to 100 because otherwise the container div we are\n  // targeting might not be part of the document yet\n  window.__gvisLoad \u003d setTimeout(function() {\n  var pkgCount \u003d pkgs.length;\n  google.load(\"visualization\", \"1\", { packages:pkgs, callback: function() {\n  if (pkgCount !\u003d pkgs.length) {\n  // Race condition where another setTimeout call snuck in after us; if\n  // that call added a package, we must not shift its callback\n  return;\n}\nwhile (callbacks.length \u003e 0)\ncallbacks.shift()();\n} });\n}, 100);\n}\n \n// jsFooter\n\u003c/script\u003e\n \n\n\u003c!-- jsChart --\u003e  \n\n\u003cscript type\u003d\"text/javascript\" src\u003d\"https://www.google.com/jsapi?callback\u003ddisplayChartColumnChartID6ec25b44fb17\"\u003e\u003c/script\u003e\n \n\n\u003c!-- divChart --\u003e\n\n\u003cdiv id\u003d\"ColumnChartID6ec25b44fb17\" style\u003d\"width: 500; height: 800;\"\u003e\n\u003c/div\u003e\n\n\n\n"
+      },
+      "dateCreated": "May 7, 2019 5:38:58 AM",
+      "dateSubmitted": "May 14, 2019 9:10:05 PM",
+      "dateStarted": "May 14, 2019 9:10:05 PM",
+      "dateFinished": "May 14, 2019 9:10:06 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nlibrary(devtools)\ndevtools::install_github(\u0027spedygiorgio/markovchain\u0027)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 13, 2019 9:01:26 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1557781126710_-675040119",
+      "id": "20190513-205846_2050087076_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nchecking for file ‘/tmp/Rtmp3tYTxo/remotes2b62221706bf/spedygiorgio-markovchain-6ff9343/DESCRIPTION’ …\n\n✔  checking for file ‘/tmp/Rtmp3tYTxo/remotes2b62221706bf/spedygiorgio-markovchain-6ff9343/DESCRIPTION’\n\n─  preparing ‘markovchain’:\n\nchecking DESCRIPTION meta-information …\n\n✔  checking DESCRIPTION meta-information\n\n─  cleaning src\n\n─  checking for LF line-endings in source and make files\n\n─  checking for empty or unneeded directories\n\n─  looking to see if a ‘data/datalist’ file should be added\n─  building ‘markovchain_0.6.9.15.tar.gz’\n\nError in i.p(...): (converted from warning) installation of package \u0027/tmp/Rtmp3tYTxo/file2b626fe8e8ea/markovchain_0.6.9.15.tar.gz\u0027 had non-zero exit status\n\n\n\n\n"
+      },
+      "dateCreated": "May 13, 2019 8:58:46 PM",
+      "dateSubmitted": "May 13, 2019 9:01:26 PM",
+      "dateStarted": "May 13, 2019 9:01:26 PM",
+      "dateFinished": "May 13, 2019 9:01:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nlibrary(googleVis)\nop \u003c- options(gvis.plot.tag\u003d\u0027chart\u0027)\n\nC \u003c- M$transition_matrix\n\nC \u003c- gvisTable(M$transition_matrix)\nplot(C)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:10:13 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1553285785542_472622678",
+      "id": "20190322-201625_458084879_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\u003c!-- Table generated in R 3.3.2 by googleVis 0.6.3 package --\u003e\n\n\u003c!-- Tue May 14 21:10:13 2019 --\u003e\n\n\u003c!-- jsHeader --\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\n \n// jsData \nfunction gvisDataTableID6ec2564d4f1a () {\nvar data \u003d new google.visualization.DataTable();\nvar datajson \u003d\n[\n [\n\"(start)\",\n\"Paid Search\",\n0.04400319298\n],\n[\n\"(start)\",\n\"Display\",\n0.01317102375\n],\n[\n\"(start)\",\n\"Direct\",\n0.2188185991\n],\n[\n\"(start)\",\n\"Organic Search\",\n0.3150069846\n],\n[\n\"(start)\",\n\"Referral\",\n0.3995210537\n],\n[\n\"(start)\",\n\"Social\",\n0.008381560567\n],\n[\n\"(start)\",\n\"Affiliates\",\n0.0009978048294\n],\n[\n\"(start)\",\n\"Other\",\n9.978048294e-05\n],\n[\n\"Paid Search\",\n\"Display\",\n0.01215277778\n],\n[\n\"Paid Search\",\n\"Organic Search\",\n0.2065972222\n],\n[\n\"Paid Search\",\n\"Referral\",\n0.04861111111\n],\n[\n\"Paid Search\",\n\"(conversion)\",\n0.7239583333\n],\n[\n\"Paid Search\",\n\"Direct\",\n0.005208333333\n],\n[\n\"Paid Search\",\n\"Affiliates\",\n0.001736111111\n],\n[\n\"Paid Search\",\n\"Social\",\n0.001736111111\n],\n[\n\"Display\",\n\"Organic Search\",\n0.1962616822\n],\n[\n\"Display\",\n\"(conversion)\",\n0.5327102804\n],\n[\n\"Display\",\n\"Referral\",\n0.2289719626\n],\n[\n\"Display\",\n\"Paid Search\",\n0.02803738318\n],\n[\n\"Display\",\n\"Direct\",\n0.009345794393\n],\n[\n\"Display\",\n\"Social\",\n0.004672897196\n],\n[\n\"Organic Search\",\n\"Display\",\n0.009400055294\n],\n[\n\"Organic Search\",\n\"(conversion)\",\n0.8612109483\n],\n[\n\"Organic Search\",\n\"Paid Search\",\n0.02460602709\n],\n[\n\"Organic Search\",\n\"Referral\",\n0.09289466409\n],\n[\n\"Organic Search\",\n\"Direct\",\n0.008294166436\n],\n[\n\"Organic Search\",\n\"Social\",\n0.002764722145\n],\n[\n\"Organic Search\",\n\"Other\",\n0.0002764722145\n],\n[\n\"Organic Search\",\n\"Affiliates\",\n0.0005529444291\n],\n[\n\"Referral\",\n\"(conversion)\",\n0.9463728954\n],\n[\n\"Referral\",\n\"Organic Search\",\n0.03408854708\n],\n[\n\"Referral\",\n\"Social\",\n0.00332571191\n],\n[\n\"Referral\",\n\"Paid Search\",\n0.004364996882\n],\n[\n\"Referral\",\n\"Display\",\n0.004780710871\n],\n[\n\"Referral\",\n\"Direct\",\n0.007067137809\n],\n[\n\"Direct\",\n\"Display\",\n0.00706401766\n],\n[\n\"Direct\",\n\"Referral\",\n0.1686534216\n],\n[\n\"Direct\",\n\"Organic Search\",\n0.05474613687\n],\n[\n\"Direct\",\n\"(conversion)\",\n0.7571743929\n],\n[\n\"Direct\",\n\"Paid Search\",\n0.007947019868\n],\n[\n\"Direct\",\n\"Social\",\n0.004415011038\n],\n[\n\"Social\",\n\"(conversion)\",\n0.8032786885\n],\n[\n\"Social\",\n\"Organic Search\",\n0.08196721311\n],\n[\n\"Social\",\n\"Referral\",\n0.08196721311\n],\n[\n\"Social\",\n\"Display\",\n0.008196721311\n],\n[\n\"Social\",\n\"Direct\",\n0.02459016393\n],\n[\n\"Other\",\n\"Display\",\n0.5\n],\n[\n\"Other\",\n\"(conversion)\",\n0.5\n],\n[\n\"Affiliates\",\n\"Referral\",\n0.1538461538\n],\n[\n\"Affiliates\",\n\"(conversion)\",\n0.6923076923\n],\n[\n\"Affiliates\",\n\"Paid Search\",\n0.07692307692\n],\n[\n\"Affiliates\",\n\"Organic Search\",\n0.07692307692\n] \n];\ndata.addColumn(\u0027string\u0027,\u0027channel_from\u0027);\ndata.addColumn(\u0027string\u0027,\u0027channel_to\u0027);\ndata.addColumn(\u0027number\u0027,\u0027transition_probability\u0027);\ndata.addRows(datajson);\nreturn(data);\n}\n \n// jsDrawChart\nfunction drawChartTableID6ec2564d4f1a() {\nvar data \u003d gvisDataTableID6ec2564d4f1a();\nvar options \u003d {};\noptions[\"allowHtml\"] \u003d true;\n\n    var chart \u003d new google.visualization.Table(\n    document.getElementById(\u0027TableID6ec2564d4f1a\u0027)\n    );\n    chart.draw(data,options);\n    \n\n}\n  \n \n// jsDisplayChart\n(function() {\nvar pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\nvar callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\nvar chartid \u003d \"table\";\n  \n// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)\nvar i, newPackage \u003d true;\nfor (i \u003d 0; newPackage \u0026\u0026 i \u003c pkgs.length; i++) {\nif (pkgs[i] \u003d\u003d\u003d chartid)\nnewPackage \u003d false;\n}\nif (newPackage)\n  pkgs.push(chartid);\n  \n// Add the drawChart function to the global list of callbacks\ncallbacks.push(drawChartTableID6ec2564d4f1a);\n})();\nfunction displayChartTableID6ec2564d4f1a() {\n  var pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\n  var callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\n  window.clearTimeout(window.__gvisLoad);\n  // The timeout is set to 100 because otherwise the container div we are\n  // targeting might not be part of the document yet\n  window.__gvisLoad \u003d setTimeout(function() {\n  var pkgCount \u003d pkgs.length;\n  google.load(\"visualization\", \"1\", { packages:pkgs, callback: function() {\n  if (pkgCount !\u003d pkgs.length) {\n  // Race condition where another setTimeout call snuck in after us; if\n  // that call added a package, we must not shift its callback\n  return;\n}\nwhile (callbacks.length \u003e 0)\ncallbacks.shift()();\n} });\n}, 100);\n}\n \n// jsFooter\n\u003c/script\u003e\n \n\n\u003c!-- jsChart --\u003e  \n\n\u003cscript type\u003d\"text/javascript\" src\u003d\"https://www.google.com/jsapi?callback\u003ddisplayChartTableID6ec2564d4f1a\"\u003e\u003c/script\u003e\n \n\n\u003c!-- divChart --\u003e\n\n\u003cdiv id\u003d\"TableID6ec2564d4f1a\" style\u003d\"width: 500; height: automatic;\"\u003e\n\u003c/div\u003e\n\n\n\n"
+      },
+      "dateCreated": "Mar 22, 2019 8:16:25 PM",
+      "dateSubmitted": "May 14, 2019 9:10:13 PM",
+      "dateStarted": "May 14, 2019 9:10:13 PM",
+      "dateFinished": "May 14, 2019 9:10:13 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "library(googleVis)\nop \u003c- options(gvis.plot.tag\u003d\u0027chart\u0027)\n\nC \u003c- gvisTable(M$removal_effects)\nplot(C)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:12:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/r"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1557775999784_-1377864681",
+      "id": "20190513-193319_1268324204_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\u003c!-- Table generated in R 3.3.2 by googleVis 0.6.3 package --\u003e\n\n\u003c!-- Tue May 14 21:11:49 2019 --\u003e\n\n\u003c!-- jsHeader --\u003e\n\n\u003cscript type\u003d\"text/javascript\"\u003e\n \n// jsData \nfunction gvisDataTableID6ec22e78d311 () {\nvar data \u003d new google.visualization.DataTable();\nvar datajson \u003d\n[\n [\n\"Paid Search\",\n0.057331,\n0.04141370907\n],\n[\n\"Display\",\n0.021401,\n0.02224060838\n],\n[\n\"Organic Search\",\n0.357288,\n0.2838403293\n],\n[\n\"Referral\",\n0.476041,\n0.4676251572\n],\n[\n\"Direct\",\n0.22538,\n0.3144761409\n],\n[\n\"Social\",\n0.012197,\n0.008417424241\n],\n[\n\"Other\",\n0.000189,\n0.0001014527003\n],\n[\n\"Affiliates\",\n0.00131,\n0.000882854046\n] \n];\ndata.addColumn(\u0027string\u0027,\u0027channel_name\u0027);\ndata.addColumn(\u0027number\u0027,\u0027removal_effects_conversion\u0027);\ndata.addColumn(\u0027number\u0027,\u0027removal_effects_conversion_value\u0027);\ndata.addRows(datajson);\nreturn(data);\n}\n \n// jsDrawChart\nfunction drawChartTableID6ec22e78d311() {\nvar data \u003d gvisDataTableID6ec22e78d311();\nvar options \u003d {};\noptions[\"allowHtml\"] \u003d true;\n\n    var chart \u003d new google.visualization.Table(\n    document.getElementById(\u0027TableID6ec22e78d311\u0027)\n    );\n    chart.draw(data,options);\n    \n\n}\n  \n \n// jsDisplayChart\n(function() {\nvar pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\nvar callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\nvar chartid \u003d \"table\";\n  \n// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)\nvar i, newPackage \u003d true;\nfor (i \u003d 0; newPackage \u0026\u0026 i \u003c pkgs.length; i++) {\nif (pkgs[i] \u003d\u003d\u003d chartid)\nnewPackage \u003d false;\n}\nif (newPackage)\n  pkgs.push(chartid);\n  \n// Add the drawChart function to the global list of callbacks\ncallbacks.push(drawChartTableID6ec22e78d311);\n})();\nfunction displayChartTableID6ec22e78d311() {\n  var pkgs \u003d window.__gvisPackages \u003d window.__gvisPackages || [];\n  var callbacks \u003d window.__gvisCallbacks \u003d window.__gvisCallbacks || [];\n  window.clearTimeout(window.__gvisLoad);\n  // The timeout is set to 100 because otherwise the container div we are\n  // targeting might not be part of the document yet\n  window.__gvisLoad \u003d setTimeout(function() {\n  var pkgCount \u003d pkgs.length;\n  google.load(\"visualization\", \"1\", { packages:pkgs, callback: function() {\n  if (pkgCount !\u003d pkgs.length) {\n  // Race condition where another setTimeout call snuck in after us; if\n  // that call added a package, we must not shift its callback\n  return;\n}\nwhile (callbacks.length \u003e 0)\ncallbacks.shift()();\n} });\n}, 100);\n}\n \n// jsFooter\n\u003c/script\u003e\n \n\n\u003c!-- jsChart --\u003e  \n\n\u003cscript type\u003d\"text/javascript\" src\u003d\"https://www.google.com/jsapi?callback\u003ddisplayChartTableID6ec22e78d311\"\u003e\u003c/script\u003e\n \n\n\u003c!-- divChart --\u003e\n\n\u003cdiv id\u003d\"TableID6ec22e78d311\" style\u003d\"width: 500; height: automatic;\"\u003e\n\u003c/div\u003e\n\n\n\n"
+      },
+      "dateCreated": "May 13, 2019 7:33:19 PM",
+      "dateSubmitted": "May 14, 2019 9:11:49 PM",
+      "dateStarted": "May 14, 2019 9:11:49 PM",
+      "dateFinished": "May 14, 2019 9:11:49 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "%r\nlibrary(ggplot2)\n\ntrans_matrix \u003c- M$transition_matrix\n\ncols \u003c- c(\"#e7f0fa\", \"#c9e2f6\", \"#95cbee\", \"#0099dc\", \"#4ab04a\", \"#ffd73e\", \"#eec73a\",\n          \"#e29421\", \"#e29421\", \"#f05336\", \"#ce472e\")\nt \u003c- max(trans_matrix$transition_probability)\n \nC \u003c- ggplot(trans_matrix, aes(y \u003d channel_from, x \u003d channel_to, fill \u003d transition_probability)) +\n        theme_minimal() +\n        geom_tile(colour \u003d \"white\", width \u003d .9, height \u003d .9) +\n        scale_fill_gradientn(colours \u003d cols, limits \u003d c(0, t),\n                             breaks \u003d seq(0, t, by \u003d t/4),\n                             labels \u003d c(\"0\", round(t/4*1, 2), round(t/4*2, 2), round(t/4*3, 2), round(t/4*4, 2)),\n                             guide \u003d guide_colourbar(ticks \u003d T, nbin \u003d 50, barheight \u003d .5, label \u003d T, barwidth \u003d 10)) +\n        geom_text(aes(label \u003d round(transition_probability, 2)), fontface \u003d \"bold\", size \u003d 4) +\n        theme(legend.position \u003d \u0027bottom\u0027,\n              legend.direction \u003d \"horizontal\",\n              panel.grid.major \u003d element_blank(),\n              panel.grid.minor \u003d element_blank(),\n              plot.title \u003d element_text(size \u003d 20, face \u003d \"bold\", vjust \u003d 2, color \u003d \u0027black\u0027, lineheight \u003d 0.8),\n              axis.title.x \u003d element_text(size \u003d 24, face \u003d \"bold\"),\n              axis.title.y \u003d element_text(size \u003d 24, face \u003d \"bold\"),\n              axis.text.y \u003d element_text(size \u003d 8, face \u003d \"bold\", color \u003d \u0027black\u0027),\n              axis.text.x \u003d element_text(size \u003d 8, angle \u003d 90, hjust \u003d 0.5, vjust \u003d 0.5, face \u003d \"plain\")) +\n        ggtitle(\"Transition matrix heatmap\")\n\nplot(C)",
+      "user": "preddy@qubole.com",
+      "dateUpdated": "May 14, 2019 9:33:45 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v1",
+      "jobName": "paragraph_1557866539065_61850093",
+      "id": "20190514-204219_1336574656_q_B752AUZNYQ1557612297",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003e\u003cimg src\u003d\"data:image/png;base64,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\u003d\u003d\" alt\u003d\"plot of chunk unnamed-chunk-1\" width\u003d\"100%\"\u003e\u003c/p\u003e"
+      },
+      "dateCreated": "May 14, 2019 8:42:19 PM",
+      "dateSubmitted": "May 14, 2019 9:33:45 PM",
+      "dateStarted": "May 14, 2019 9:33:45 PM",
+      "dateFinished": "May 14, 2019 9:33:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 1000
+    },
+    {
+      "text": "",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "version": "v0",
+      "jobName": "paragraph_1557776028186_-746845836",
+      "id": "20190513-193348_1364719905_q_B752AUZNYQ1557612297",
+      "dateCreated": "May 13, 2019 7:33:48 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 1000
+    }
+  ],
+  "name": "Google_Analytics_V3 - SparkR",
+  "id": "B752AUZNYQ1557612297",
+  "angularObjects": {
+    "2CMUW38UB11041500270198383:shared_process": [],
+    "2CMCM6RE311041500270198378:shared_process": [],
+    "2CN9ZEH4D11041500270198392:shared_process": [],
+    "2CR3VEDTX11041500270198358:shared_process": []
+  },
+  "config": {
+    "isDashboard": false,
+    "defaultLang": "r"
+  },
+  "info": {},
+  "source": "FCN"
+}
